@@ -24,6 +24,9 @@ class Dashboard1 extends Component {
     return (
       <Fragment>
         <div className="pb-86 pt-30 px-30 bg-primary">
+          <div style={{background:"#B55304",height:"50px"}}>
+            
+          </div>
           <ModifiedAreaChart
             height="280px"
             option={{
@@ -55,42 +58,41 @@ class Dashboard1 extends Component {
 
         <div className="analytics m-sm-30 mt--72">
           <Grid container spacing={3}>
-            <Grid item lg={12} md={12} sm={12} xs={12}>
+            <Grid item lg={8} md={8} sm={12} xs={12}>
 
               <StatCards theme={theme}/>
 
-              
-              <h4 className="card-title text-muted mb-16">Most Recent Orders</h4>
-              <RowCards />
+              {/* Top Selling Products */}
+              <TableCard/>
 
-            </Grid>
+              
 
            
-          </Grid>
-        </div>
+            </Grid>
 
-
-        {/* <div>
-        <Grid item lg={4} md={4} sm={12} xs={12}>
+            <Grid item lg={4} md={4} sm={12} xs={12}>
               <Card className="px-24 py-16 mb-16">
-                <div className="card-title">Traffic Sources</div>
+                <div className="card-title">All Orders</div>
                 <div className="card-subtitle">Last 30 days</div>
                 <DoughnutChart
                   height="300px"
                   color={[
-                    theme.palette.primary.dark,
-                    theme.palette.primary.main,
-                    theme.palette.primary.light
+                    "#ff6f00",
+                    "#ffeb3b",
+                    "#388e3c"
                   ]}
                 />
               </Card>
 
-              <UpgradeCard/>
-
-              <Campaigns/>
-
+              {/* <UpgradeCard/> */}
+              <StatCards2/>
+             
             </Grid>
-        </div> */}
+          </Grid>
+        </div>
+
+
+       
       </Fragment>
     );
   }

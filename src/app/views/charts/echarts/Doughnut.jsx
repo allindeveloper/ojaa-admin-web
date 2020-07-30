@@ -55,7 +55,7 @@ const DoughnutChart = ({ height, color = [], theme }) => {
             show: false,
             position: "center", // shows the description data to center, turn off to show in right side
             textStyle: {
-              color: theme.palette.text.secondary,
+              // color: theme.palette.text.secondary,
               fontSize: 13,
               fontFamily: "roboto"
             },
@@ -65,8 +65,8 @@ const DoughnutChart = ({ height, color = [], theme }) => {
             show: true,
             textStyle: {
               fontSize: "14",
-              fontWeight: "normal"
-              // color: "rgba(15, 21, 77, 1)"
+              fontWeight: "normal",
+              color: "rgba(15, 21, 77, 1)"
             },
             formatter: "{b} \n{c} ({d}%)"
           }
@@ -79,13 +79,13 @@ const DoughnutChart = ({ height, color = [], theme }) => {
         data: [
           {
             value: 65,
-            name: "Google"
+            name: "Completed Orders"
           },
           {
             value: 20,
-            name: "Facebook"
+            name: "Active Orders"
           },
-          { value: 15, name: "Others" }
+          { value: 15, name: "New Orders" }
         ],
         itemStyle: {
           emphasis: {

@@ -24,7 +24,7 @@ const StatCards = ({theme}) => {
             </Icon>
             <div className="ml-12">
               <small className="text-muted">New Orders</small>
-              <h6 className="m-0 mt-4 text-primary font-weight-500">3050</h6>
+              <h6 className="m-0 mt-4 text-primary font-weight-500">3</h6>
             </div>
           </div>
           <Tooltip title="View Details" placement="top">
@@ -48,7 +48,7 @@ const StatCards = ({theme}) => {
             </Icon>
             <div className="ml-12">
               <small className="text-muted">Active Orders</small>
-              <h6 className="m-0 mt-4 text-primary font-weight-500">$80500</h6>
+              <h6 className="m-0 mt-4 text-primary font-weight-500">25</h6>
             </div>
           </div>
           <Tooltip title="View Details" placement="top">
@@ -73,7 +73,7 @@ const StatCards = ({theme}) => {
             </Icon>
             <div className="ml-12">
               <small className="text-muted">Completed Orders</small>
-              <h6 className="m-0 mt-4 text-primary font-weight-500">$80500</h6>
+              <h6 className="m-0 mt-4 text-primary font-weight-500">209k</h6>
             </div>
           </div>
           <Tooltip title="View Details" placement="top">

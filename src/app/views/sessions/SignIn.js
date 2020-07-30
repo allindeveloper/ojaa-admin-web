@@ -39,7 +39,7 @@ const styles = (theme) => ({
     position: "absolute",
     top: "50%",
     left: "50%",
-    marginTop: -12,
+    marginTop: 10,
     marginLeft: -12,
   },
 });

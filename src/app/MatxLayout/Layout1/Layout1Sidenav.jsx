@@ -105,7 +105,7 @@ class Layout1Sidenav extends Component {
       <div className="sidenav__user">
         <div className="username-photo">
           {/* <img src={user.photoURL} alt="user" /> */}
-          <AccountCircleIcon style={{ fontSize: 50 }}/>
+          <AccountCircleIcon style={{ fontSize: 30 }}/>
         </div>
         <div className="ml-8">
           <span className="username">
