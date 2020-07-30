@@ -46,8 +46,8 @@ const styles = (theme) => ({
 
 class SignIn extends Component {
   state = {
-    email: "watson@example.com",
-    password: "testpass",
+    email: "",
+    password: "",
     agreement: "",
   };
   handleChange = (event) => {
@@ -63,6 +63,14 @@ class SignIn extends Component {
     let { email, password } = this.state;
     let { classes } = this.props;
     return (
+      <section className="sessionSignin" style={{
+        backgroundImage: `url(${"/assets/images/ojaaCart.png"})`,
+        height: "100%",
+        backgroundPosition: "left",
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "contain"
+      }}>
+        <div style={{background: "white",opacity: 0.6}}>
       <div className="signup flex flex-center w-100 h-100vh">
         <div className="p-8">
           <Card className="signup-card position-relative y-center">
@@ -86,7 +94,7 @@ class SignIn extends Component {
                       label="Email"
                       onChange={this.handleChange}
                       type="email"
-                      name="email"
+                      name="fakeusernameremembered"
                       value={email}
                       fullWidth={true}
                       validators={["required", "isEmail"]}
@@ -94,6 +102,8 @@ class SignIn extends Component {
                         "this field is required",
                         "email is not valid",
                       ]}
+                      autoComplete={false}
+                      su
                     />
                     <TextValidator
                       className={classes.root.concat(" mb-16 w-100")}
@@ -112,9 +122,9 @@ class SignIn extends Component {
                       <Grid container justify="center">
                         <Button
                           className="text-primary"
-                          onClick={() =>
-                            this.props.history.push("/session/forgot-password")
-                          }
+                          // onClick={() =>
+                          //   this.props.history.push("/session/forgot-password")
+                          // }
                         >
                           Forgot password?
                         </Button>
@@ -147,6 +157,8 @@ class SignIn extends Component {
           </Card>
         </div>
       </div>
+      </div>
+      </section>
     );
   }
 }

@@ -8,7 +8,7 @@ const Settings = () => {
       <div  className="mb-sm-30">
         <Breadcrumb
           routeSegments={[
-            { name: "Home", path: "/app/settings" },
+            { name: "Home", path: "/app/dashboard" },
             { name: "Settings" }
           ]}
         />

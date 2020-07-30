@@ -7,7 +7,33 @@ import {
   Tooltip,
 } from "@material-ui/core";
 
-const StatCards = ({theme}) => {
+const StatCards = (props) => {
+  const theme = props.theme;
+
+  const openNewOrders = () =>{
+    console.log("props",props)
+    props.history.push({
+      pathname: '/app/orders',
+      state: { tab: 0 }
+  });
+}
+    const openActiveOrders = () =>{
+    console.log("props",props)
+    props.history.push({
+      pathname: '/app/orders',
+      state: { tab: 1 }
+  });
+}
+
+  const openCompletedOrders = () =>{
+    console.log("props",props)
+    props.history.push({
+      pathname: '/app/orders',
+      state: { tab: 2 }
+  });
+
+
+  }
   return (
     <Grid container spacing={3} className="mb-24">
       <Grid item xs={12} md={4}>
@@ -27,8 +53,8 @@ const StatCards = ({theme}) => {
               <h6 className="m-0 mt-4 text-primary font-weight-500">3</h6>
             </div>
           </div>
-          <Tooltip title="View Details" placement="top">
-            <IconButton>
+          <Tooltip title="View New Orders" placement="top">
+            <IconButton onClick={openNewOrders}>
               <Icon>arrow_right_alt</Icon>
             </IconButton>
           </Tooltip>
@@ -51,8 +77,8 @@ const StatCards = ({theme}) => {
               <h6 className="m-0 mt-4 text-primary font-weight-500">25</h6>
             </div>
           </div>
-          <Tooltip title="View Details" placement="top">
-            <IconButton>
+          <Tooltip title="View Active Orders" placement="top">
+            <IconButton onClick={openActiveOrders}>
               <Icon>arrow_right_alt</Icon>
             </IconButton>
           </Tooltip>
@@ -61,7 +87,7 @@ const StatCards = ({theme}) => {
 
       <Grid item xs={12} md={4}>
         <Card className="play-card p-sm-24 bg-paper" elevation={6}>
-          <div className="flex flex-middle">
+          <div className="flex flex-middle" >
             <Icon
               style={{
                 fontSize: "44px",
@@ -76,9 +102,9 @@ const StatCards = ({theme}) => {
               <h6 className="m-0 mt-4 text-primary font-weight-500">209k</h6>
             </div>
           </div>
-          <Tooltip title="View Details" placement="top">
-            <IconButton>
-              <Icon>arrow_right_alt</Icon>
+          <Tooltip title="View Completed Orders" placement="top">
+            <IconButton onClick={openCompletedOrders}>
+              <Icon >arrow_right_alt</Icon>
             </IconButton>
           </Tooltip>
         </Card>

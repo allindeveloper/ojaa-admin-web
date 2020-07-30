@@ -14,18 +14,18 @@ import StatCards2 from "./shared/StatCards2";
 import UpgradeCard from "./shared/UpgradeCard";
 import Campaigns from "./shared/Campaigns";
 import { withStyles } from "@material-ui/styles";
+import FilterOrders from "./shared/FilterOrders";
 
 class Dashboard1 extends Component {
   state = {};
 
   render() {
     let { theme } = this.props;
-
     return (
       <Fragment>
         <div className="pb-86 pt-30 px-30 bg-primary">
-          <div style={{background:"#B55304",height:"50px"}}>
-            
+          <div style={{background:"#B55304",height:"40px"}}>
+           <FilterOrders/>
           </div>
           <ModifiedAreaChart
             height="280px"
@@ -60,7 +60,7 @@ class Dashboard1 extends Component {
           <Grid container spacing={3}>
             <Grid item lg={8} md={8} sm={12} xs={12}>
 
-              <StatCards theme={theme}/>
+              <StatCards theme={theme}{...this.props}/>
 
               {/* Top Selling Products */}
               <TableCard/>

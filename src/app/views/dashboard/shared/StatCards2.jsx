@@ -9,7 +9,7 @@ import {
 const StatCards2 = () => {
   return (
     <Grid container spacing={3} className="mb-24">
-      <Grid item xs={12} md={6}>
+      <Grid item xs={12} md={12}>
         <Card elevation={3} className="p-16">
           <div className="flex flex-middle">
             <Fab
@@ -31,7 +31,8 @@ const StatCards2 = () => {
           </div>
         </Card>
       </Grid>
-      <Grid item xs={12} md={6}>
+
+      <Grid item xs={12} md={12}>
         <Card elevation={3} className="p-16">
           <div className="flex flex-middle">
             <Fab

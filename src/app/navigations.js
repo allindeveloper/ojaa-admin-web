@@ -5,6 +5,11 @@ export const navigations = [
     icon: "dashboard"
   },
   {
+    name: "Orders",
+    path: "/app/orders",
+    icon: "shopping_cart"
+  },
+  {
     name: "Complaints",
     icon: "info",
     path: "/app/complaints"
