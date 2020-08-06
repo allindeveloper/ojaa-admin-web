@@ -18,6 +18,12 @@ const styles = (theme) => ({
     backgroundColor: "#09A6E0",
     width: "17rem",
   },
+  OrderNumber:{
+      color:"#1A88B8"
+  },
+  Paid:{
+      color:"#CC7203"
+  }
 });
 class NewOrders extends Component {
   constructor(props) {

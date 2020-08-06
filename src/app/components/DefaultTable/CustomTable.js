@@ -63,7 +63,7 @@ export const CustomTable = (props)=>{
                   <Grid item xs={12} sm={6}>
                     Order Number
                   </Grid>
-                  <Grid item xs={12} sm={6}>
+                  <Grid item xs={12} sm={6} className={classes.OrderNumber}>
                     {item.OrderNumber}
                   </Grid>
                 </Grid>
@@ -143,11 +143,11 @@ export const CustomTable = (props)=>{
                 </Grid>
     
                 <Grid container spacing={3}>
-                  <Grid item xs={12} sm={6}>
+                  <Grid item xs={12} sm={6} >
                     Paid
                   </Grid>
-                  <Grid item xs={12} sm={6}>
-                    N 1000
+                  <Grid item xs={12} sm={6}className={classes.Paid}>
+                    N 10000
                   </Grid>
                 </Grid>
     
