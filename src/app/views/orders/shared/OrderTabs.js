@@ -9,6 +9,7 @@ import ShoppingCartOutlined from '@material-ui/icons/ShoppingCartOutlined';
 import AddShoppingCart from '@material-ui/icons/AddShoppingCart';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
+import NewOrders from './NewOrders';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -78,7 +79,7 @@ export default function OrderTabs(props) {
          </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
-        New Orders
+        <NewOrders/>
       </TabPanel>
       <TabPanel value={value} index={1}>
         Active Orders
