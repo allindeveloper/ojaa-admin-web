@@ -10,6 +10,7 @@ import AddShoppingCart from '@material-ui/icons/AddShoppingCart';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import NewOrders from './NewOrders';
+import { Container } from '@material-ui/core';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -23,9 +24,11 @@ function TabPanel(props) {
       {...other}
     >
       {value === index && (
+        <Container>
         <Box p={3}>
-          <Typography>{children}</Typography>
+            {children}
         </Box>
+    </Container>
       )}
     </div>
   );
