@@ -46,7 +46,7 @@ const styles = (theme) => ({
 
 class SignIn extends Component {
   state = {
-    fakeemail: "",
+    email: "",
     password: "",
     agreement: "",
   };
@@ -60,10 +60,10 @@ class SignIn extends Component {
     const loginService = this.props.Service (null,null);
 
     console.log("loginService", loginService)
-    this.props.loginWithEmailAndPassword({ ...this.state},this.props.history);
+    this.props.loginWithEmailAndPassword({ ...this.state},this.props.history,loginService);
   };
   render() {
-    let { fakeemail, password } = this.state;
+    let { email, password } = this.state;
     let { classes } = this.props;
     return (
       <section className="sessionSignin" style={{
@@ -97,8 +97,8 @@ class SignIn extends Component {
                       label="Email"
                       onChange={this.handleChange}
                       type="email"
-                      name="fakeemail"
-                      value={fakeemail}
+                      name="email"
+                      value={email}
                       fullWidth={true}
                       validators={["required", "isEmail"]}
                       errorMessages={[

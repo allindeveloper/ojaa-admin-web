@@ -5,7 +5,9 @@ import { setUserData } from "../redux/actions/UserActions";
 import jwtAuthService from "../services/jwtAuthService";
 import localStorageService from "../services/localStorageService";
 import firebaseAuthService from "../services/firebase/firebaseAuthService";
-import history from "history.js";
+// import history from "history.js";
+import {createBrowserHistory} from 'history'
+import { withRouter } from "react-router-dom";
 
 class Auth extends Component {
   state = {};
@@ -19,27 +21,39 @@ class Auth extends Component {
     this.props.setUserData(localStorageService.getItem("auth_user"));
     
     // Check current token is valid on page load/reload
-    this.checkJwtAuth();
+    // this.checkJwtAuth();
 
     // this.checkFirebaseAuth();
+  }
+
+  componentWillMount(){
+    const loc = window.location.pathname
+    if( loc !== "/session/signin"){
+      this.checkJwtAuth();
+    }
   }
 
   checkJwtAuth = () => {
     // You need to send token to your server to check token is valid
     // modify loginWithToken method in jwtService
-    jwtAuthService.loginWithToken().then(user => {
+    const AUTH_TOKEN = localStorage.getItem("jwt_token")
+    const loginService = this.props.Service (AUTH_TOKEN);
+    jwtAuthService.loginWithToken(loginService).then(user => {
 
       // Valid token
       // Set user
       this.props.setUserData(user);
 
       // You should redirect user to Dashboard here
-      
+      this.props.history.push({
+        pathname: "/home/dashboard"
+      });
     }).catch(err => {
       // Invalid token
+    //  debugger;
       // Ridirect user to sign in page here
       console.log(err);
-      history.push({
+      this.props.history.push({
         pathname: "/session/signin"
       });
     });
@@ -59,6 +73,7 @@ class Auth extends Component {
 
   render() {
     const { children } = this.props;
+    console.log("auth props",this.props)
     return <Fragment>{children}</Fragment>;
   }
 }
@@ -71,4 +86,4 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   { setUserData }
-)(Auth);
+)(withRouter(Auth));

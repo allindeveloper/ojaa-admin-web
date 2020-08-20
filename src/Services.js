@@ -30,12 +30,12 @@ export const Service = (baseUrl, Axios, token) => {
 		return instance.put(`${getApiv1Url(controller)}/${id}`,data);
 	}
 
-	const userLogin = (data, controller, action) => {
-		return instance.post(getApiUrl(controller, action), data);
+	const userLogin = (data, controller) => {
+		return instance.post(getApiv1Url(controller), data);
 	}
 
-	const getUserByEmail = (controller, action,email) => {
-		return instance.get(`${getApiUrl(controller, action)}${email}`);
+	const getUserById = (controller,id) => {
+		return instance.get(`${getApiv1Url(controller)}/${id}`);
 	}
 
 
@@ -52,7 +52,7 @@ export const Service = (baseUrl, Axios, token) => {
 		userLogin,
 		editItem,
 		getItems,
-		getUserByEmail,
+		getUserById,
 		createItemV1
 	}
 

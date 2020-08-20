@@ -42,20 +42,21 @@ instance.get('/config.json').then(res => {
             <AppContext.Provider value={{ routes }}>
             <Provider store={Store}>
               <MatxTheme>
-                <Auth Service={Service.bind(null, config.baseURL, Axios)}>
+               
                   <Router history={history}>
                     {/* <AuthGuard> */}
-                    {/* <Layout 
+                    {/* <Layout /> */}
+                     <Auth Service={Service.bind(null, config.baseURL, Axios)}>
                     
-                    /> */}
                       <MatxLayout 
                     Constants={Constants}
                     Service={Service.bind(null, config.baseURL, Axios)} 
                     />
                     {/* </AuthGuard> */}
+                    </Auth>
                     <ToastContainer />
                   </Router>
-                </Auth>
+                
               </MatxTheme>
             </Provider>
           </AppContext.Provider>
