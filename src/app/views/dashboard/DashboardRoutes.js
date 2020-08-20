@@ -7,7 +7,7 @@ const Analytics = MatxLoadable({
 
 const dashboardRoutes = [
   {
-    path: "/app/dashboard",
+    path: "/home/dashboard",
     component: Analytics,
     auth: authRoles.admin
   }

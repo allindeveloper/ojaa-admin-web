@@ -21,6 +21,7 @@ class Dashboard1 extends Component {
 
   render() {
     let { theme } = this.props;
+    console.log("props in dashboard",this.props)
     return (
       <Fragment>
         <div className="pb-86 pt-30 px-30 bg-primary">

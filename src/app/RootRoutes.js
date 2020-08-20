@@ -12,7 +12,7 @@ const redirectRoute = [
   {
     path: "/",
     exact: true,
-    component: () => <Redirect to="/app/dashboard" />
+    component: () => <Redirect to="/home/dashboard" />
   }
 ];
 

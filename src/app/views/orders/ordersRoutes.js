@@ -7,7 +7,7 @@ const Orders = MatxLoadable({
 
 const ordersRoutes = [
   {
-    path: "/app/orders",
+    path: "/home/orders",
     component: Orders,
     auth: authRoles.admin
   }

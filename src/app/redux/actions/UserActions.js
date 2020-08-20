@@ -1,4 +1,4 @@
-import history from "history.js";
+// import history from "history.js";
 import jwtAuthService from "../../services/jwtAuthService";
 
 export const SET_USER_DATA = "USER_SET_DATA";
@@ -14,7 +14,7 @@ export function setUserData(user) {
   };
 }
 
-export function logoutUser() {
+export function logoutUser(history) {
   return dispatch => {
     jwtAuthService.logout();
 

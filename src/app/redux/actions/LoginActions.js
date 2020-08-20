@@ -1,14 +1,14 @@
 import jwtAuthService from "../../services/jwtAuthService";
 // import FirebaseAuthService from "../../services/firebase/firebaseAuthService";
 import { setUserData } from "./UserActions";
-import history from "history.js";
+// import history from "history.js";
 
 export const LOGIN_ERROR = "LOGIN_ERROR";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_LOADING = "LOGIN_LOADING";
 export const RESET_PASSWORD = "RESET_PASSWORD";
 
-export function loginWithEmailAndPassword({ email, password }) {
+export function loginWithEmailAndPassword({ email, password },history) {
   return dispatch => {
     dispatch({
       type: LOGIN_LOADING
@@ -20,7 +20,7 @@ export function loginWithEmailAndPassword({ email, password }) {
         dispatch(setUserData(user));
 
         history.push({
-          pathname: "/"
+          pathname: "/home/dashboard"
         });
 
         return dispatch({

@@ -7,7 +7,7 @@ const Complaints = MatxLoadable({
 
 const complaintsRoute = [
   {
-    path: "/app/complaints",
+    path: "/home/complaints",
     component: Complaints,
     auth: authRoles.admin
   }

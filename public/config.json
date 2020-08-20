@@ -1,0 +1,4 @@
+{
+    "baseURL": "http://18.191.163.214:8990/v1",
+    "client_id": "#{trackItclient_id}"
+}

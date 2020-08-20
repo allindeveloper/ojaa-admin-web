@@ -4,7 +4,7 @@ import Highlight from "react-highlight";
 import OrderTabs from "./shared/OrderTabs";
 
 const Orders = (props) => {
-  console.log("props in ordders",props.location)
+  console.log("props in ordders",props)
   const incomingTab = props.location.state ? props.location.state.tab || 0 : 0
   return (
     <div className="m-sm-30">

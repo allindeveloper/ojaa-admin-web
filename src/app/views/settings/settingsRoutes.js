@@ -7,7 +7,7 @@ const Settings = MatxLoadable({
 
 const settingsRoutes = [
   {
-    path: "/app/settings",
+    path: "/home/settings",
     component: Settings,
     auth: authRoles.admin
   }

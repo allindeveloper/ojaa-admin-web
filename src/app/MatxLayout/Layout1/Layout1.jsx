@@ -21,12 +21,34 @@ const styles = theme => {
 };
 
 class Layout1 extends Component {
+
+  constructor(props){
+    super(props);
+    this.state={
+      sending:true
+    }
+  }
   componentWillMount() {
     if (isMdScreen()) {
       this.updateSidebarMode({ mode: "close" });
     }
   }
 
+
+  componentDidMount() {
+    // let user = mockUser;
+    console.log("calling didmount")
+     let tk = localStorage.getItem("jwt_token")
+    //  let userDTO = JSON.parse(localStorage.getItem("TRACKITUSER"))
+     const AUTH_TOKEN = `${tk}`;
+    //  debugger;
+    // the token in LocalStorage was set on Login
+     const ServiceBase = this.props.Service(AUTH_TOKEN)
+
+     this.setState({ ServiceBase: ServiceBase });
+     this.setState({ sending: false })
+    // api call would be made to get detailed user information then the user state would be set and cascaded to all wrapper.
+  }
   componentWillUnmount() {
   }
 
@@ -53,9 +75,15 @@ class Layout1 extends Component {
       [`${settings.activeLayout} sidenav-${layout1Settings.leftSidebar.mode} theme-${theme.palette.type} flex`]: true,
       "topbar-fixed": layout1Settings.topbar.fixed
     };
+    const extraProps ={
+      ...this.props,
+      ...this.state
+    }
+    console.log("extraprops",extraProps)
     return (
       <AppContext.Consumer>
         {({ routes }) => (
+          <>{ (!this.state.sending) &&
           <div className={classList(layoutClasses)}>
             {layout1Settings.leftSidebar.show && <Layout1Sidenav />}
 
@@ -68,9 +96,9 @@ class Layout1 extends Component {
                 <Scrollbar className="scrollable-content">
                   {layout1Settings.topbar.show &&
                     !layout1Settings.topbar.fixed && <Layout1Topbar style={{height: '80px'}} />}
-                  <div className="content">{renderRoutes(routes)}</div>
+                  <div className="content">{renderRoutes(routes,extraProps)}</div>
                   <div className="my-auto" />
-                  {settings.footer.show && !settings.footer.fixed && <Footer />}
+                  {/* {settings.footer.show && !settings.footer.fixed && <Footer />} */}
                 </Scrollbar>
               )}
 
@@ -78,15 +106,16 @@ class Layout1 extends Component {
                 <div className="scrollable-content">
                   {layout1Settings.topbar.show &&
                     !layout1Settings.topbar.fixed && <Layout1Topbar />}
-                  <div className="content">{renderRoutes(routes)}</div>
+                  <div className="content">{renderRoutes(routes,extraProps)}</div>
                   <div className="my-auto" />
-                  {settings.footer.show && !settings.footer.fixed && <Footer />}
+                  {/* {settings.footer.show && !settings.footer.fixed && <Footer />} */}
                 </div>
               )}
 
-              {settings.footer.show && settings.footer.fixed && <Footer />}
+              {/* {settings.footer.show && settings.footer.fixed && <Footer />} */}
             </div>
           </div>
+  }</>
         )}
       </AppContext.Consumer>
     );

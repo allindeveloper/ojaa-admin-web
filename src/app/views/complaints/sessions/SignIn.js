@@ -57,7 +57,10 @@ class SignIn extends Component {
     });
   };
   handleFormSubmit = (event) => {
-    this.props.loginWithEmailAndPassword({ ...this.state });
+    const loginService = this.props.Service (null,null);
+
+    console.log("loginService", loginService)
+    this.props.loginWithEmailAndPassword({ ...this.state},this.props.history);
   };
   render() {
     let { email, password } = this.state;

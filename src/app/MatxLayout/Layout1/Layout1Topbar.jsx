@@ -57,7 +57,8 @@ class Layout1Topbar extends Component {
   };
 
   handleSignOut = () => {
-    this.props.logoutUser();
+    console.log("history in logging out",this.props.history)
+    this.props.logoutUser(this.props.history);
   };
 
   render() {
