@@ -16,7 +16,7 @@ const themes = createMatxThemes();
 
 export const MatxLayoutSettings = {
   activeLayout: "layout1", // Check out Matx pro for more options
-  activeTheme: "purple1", // View all valid theme colors inside MatxTheme/themeColors.js
+  activeTheme: "orange1", // View all valid theme colors inside MatxTheme/themeColors.js
   perfectScrollbar: true,
 
   themes: themes,

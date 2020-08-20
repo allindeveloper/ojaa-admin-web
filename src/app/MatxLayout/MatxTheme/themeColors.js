@@ -70,6 +70,21 @@ export const themeColors = {
       text: textLight
     }
   },
+  orange1: {
+    palette: {
+      type: "light",
+      primary: {
+        // main: "#7467ef",
+        main:"#F37B18",
+        contrastText: "#ffffff"
+      },
+      secondary: {
+        main: "#ff9e43",
+        contrastText: textLight.primary
+      },
+      text: textLight
+    }
+  },
   purple2: {
     palette: {
       type: "light",
