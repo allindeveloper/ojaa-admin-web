@@ -84,7 +84,7 @@ class Layout1Sidenav extends Component {
   };
 
   handleSignOut = () => {
-    this.props.logoutUser();
+    this.props.logoutUser(this.props.history);
   };
 
   renderLogoSwitch = () => (
