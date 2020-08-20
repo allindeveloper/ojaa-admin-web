@@ -105,8 +105,7 @@ class SignIn extends Component {
                         "this field is required",
                         "email is not valid",
                       ]}
-                      autoComplete={false}
-                      su
+                      autoComplete={"false"}
                     />
                     <TextValidator
                       className={classes.root.concat(" mb-16 w-100")}

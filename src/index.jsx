@@ -13,13 +13,13 @@ import MatxTheme from "app/MatxLayout/MatxTheme/MatxTheme";
 import AppContext from "app/appContext";
 import Layout from "app/hoc/Layout";
 import { Service } from "../src/Services";
-import * as Constants  from "../src/Constants";
+import * as Constants from "../src/Constants";
 import Axios from "axios";
 import Auth from "app/auth/Auth";
 import { Store } from "app/redux/Store";
 import routes from "./app/RootRoutes";
 import history from "app/history";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import MatxLayout from "app/MatxLayout/MatxLayout";
 import AuthGuard from "app/auth/AuthGuard";
@@ -27,48 +27,42 @@ import AuthGuard from "app/auth/AuthGuard";
 // cssVars();
 
 const instance = Axios.create({
-    baseURL: '',
-    headers: {}
+  baseURL: "",
+  headers: {},
 });
 
-
-instance.get('/config.json').then(res => {
+instance
+  .get("/config.json")
+  .then((res) => {
     if (res.data && res.data.baseURL) {
-        const config = res.data;
+      const config = res.data;
 
-        sessionStorage.setItem('ApiBaseUrl', config.baseURL);
+      sessionStorage.setItem("ApiBaseUrl", config.baseURL);
 
-        ReactDOM.render(
-            <AppContext.Provider value={{ routes }}>
-            <Provider store={Store}>
-              <MatxTheme>
-               
-                  <Router history={history}>
-                    {/* <AuthGuard> */}
-                    {/* <Layout /> */}
-                     <Auth Service={Service.bind(null, config.baseURL, Axios)}>
-                    
-                      <MatxLayout 
+      ReactDOM.render(
+        <AppContext.Provider value={{ routes }}>
+          <Provider store={Store}>
+            <MatxTheme>
+              <Router history={history}>
+                {/* <AuthGuard> */}
+                <Auth Service={Service.bind(null, config.baseURL, Axios)}>
+                  <MatxLayout
                     Constants={Constants}
-                    Service={Service.bind(null, config.baseURL, Axios)} 
-                    />
-                    {/* </AuthGuard> */}
-                    </Auth>
-                    <ToastContainer />
-                  </Router>
-                
-              </MatxTheme>
-            </Provider>
-          </AppContext.Provider>
-            , document.getElementById('root'));
+                    Service={Service.bind(null, config.baseURL, Axios)}
+                  />
+                  {/* </AuthGuard> */}
+                </Auth>
+                <ToastContainer />
+              </Router>
+            </MatxTheme>
+          </Provider>
+        </AppContext.Provider>,
+        document.getElementById("root")
+      );
 
-        serviceWorker.unregister();
+      serviceWorker.unregister();
     } else {
-        console.log('Error:', 'base API URL is missing..');
-
+      console.log("Error:", "base API URL is missing..");
     }
-
-})
-    .catch(err => {
-
-    })
+  })
+  .catch((err) => {});
