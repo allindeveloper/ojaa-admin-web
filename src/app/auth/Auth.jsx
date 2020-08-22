@@ -38,7 +38,7 @@ class Auth extends Component {
     // modify loginWithToken method in jwtService
     const AUTH_TOKEN = localStorage.getItem("jwt_token")
     const loginService = this.props.Service (AUTH_TOKEN);
-    jwtAuthService.loginWithToken(loginService).then(user => {
+    jwtAuthService.loginWithToken(loginService,this.props.history).then(user => {
 
       // Valid token
       // Set user

@@ -1,6 +1,7 @@
 import axios from "axios";
 import localStorageService from "./localStorageService";
 import { LOGIN, USER } from "Constants";
+import { toast } from "react-toastify";
 
 class JwtAuthService {
 
@@ -40,10 +41,16 @@ class JwtAuthService {
       }
       })
       .catch((err)=>{
-        if(err){
-        console.log("err on login", err.response.data)
-        reject(err.response.data)
+        if(!err){
+        // console.log("err on login", err.response.data)
+        toast.error( "Check your network or try again", {
+          position: toast.POSITION.TOP_RIGHT,
+          autoClose:5000
+        });
+        window.location.href = "/"
+        return;
         }
+        reject(err.response.data)
       })
       // setTimeout(() => {
         
@@ -61,7 +68,7 @@ class JwtAuthService {
 
   // You need to send http requst with existing token to your server to check token is valid
   // This method is being used when user logged in & app is reloaded
-  loginWithToken = async (loginService) => {
+  loginWithToken = async (loginService,history) => {
     return new  Promise( async (resolve, reject) => {
       // setTimeout(() => {
       //   resolve(this.user);
@@ -80,9 +87,14 @@ class JwtAuthService {
       }
       })
       .catch((err)=>{
-        if(err){
-        console.log("err on login", err.response.data)
-        reject(err.response.data)
+        if(err.response === undefined){
+        //console.log("err on login", err.response.data)
+        // reject(err.response.data)
+        toast.error( "Check your network or try again", {
+          position: toast.POSITION.TOP_RIGHT,
+          autoClose:3000
+        });
+        history.push("/session/signin")
         }
       })
     }).then(data => {

@@ -75,7 +75,7 @@ export default function OrderTabs(props) {
           scrollButtons="on"
           indicatorColor="primary"
           textColor="primary"
-          aria-label="orders categories"
+          aria-label="Orders categories"
         >
           <Tab label="New Orders" icon={<AddShoppingCart />} {...a11yProps(0)} />
           <Tab label="Active Orders" icon={<ShoppingBasket />} {...a11yProps(1)} />
@@ -83,7 +83,7 @@ export default function OrderTabs(props) {
          </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
-        <NewOrders/>
+        <NewOrders {...props}/>
       </TabPanel>
       <TabPanel value={value} index={1}>
         Active Orders
