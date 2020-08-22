@@ -48,9 +48,9 @@ if (!Object.keys) {
 export const CustomTable = (props)=>{
   const classes = props.classes
 	return (
-		<>
+		<> 
         {
-          props.rows.length > 0 && 
+          props.rows.length > 0 ? 
          <>
           {
             props.rows.map((item,index)=>{
@@ -177,11 +177,13 @@ export const CustomTable = (props)=>{
               })
             }
             </>
+            :
+            <p>No record found</p>
         }
-        {
-          props.rows.length === 0 && !props.isSearching &&
-          <p>No record found</p>
-        }
+        {/* // {
+        //   props.rows.length === 0 && !props.isSearching &&
+          
+        // } */}
 					
 				</>
 		)

@@ -45,9 +45,9 @@ class Auth extends Component {
       this.props.setUserData(user);
 
       // You should redirect user to Dashboard here
-      this.props.history.push({
-        pathname: "/home/dashboard"
-      });
+      // this.props.history.push({
+      //   pathname: "/home/dashboard"
+      // });
     }).catch(err => {
       // Invalid token
     //  debugger;

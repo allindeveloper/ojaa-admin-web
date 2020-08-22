@@ -64,15 +64,16 @@ class PaginationX extends React.Component {
        var data;
        this.setState({searching:true});
       // data=call api with search data
-      this.props.service(this.props.controller,this.props.action,searchData).then(res=>{
+      this.props.service(this.props.controller,this.props.action,page).then(res=>{
            // console.log('back from search')
             var pager = this.state.pager;
             if (!Array.isArray(res.data)) {
 
-                 if (res.headers['x-pagination']) {
-                const serverPagination=JSON.parse(res.headers['x-pagination']);
-                            this.setState({totalItems:serverPagination.totalCount,totalPages:serverPagination.totalPages});
-                        }
+                 //if (res.headers['x-pagination']) {
+                // const serverPagination=JSON.parse(res.headers['x-pagination']);
+                //             this.setState({totalItems:serverPagination.totalCount,totalPages:serverPagination.totalPages});
+                // }
+                this.setState({totalPages:res.data.pages})
  
                     if (page < 1 || (pager.totalPages !==0 && page > pager.totalPages) ) {
                         return;
@@ -89,21 +90,21 @@ class PaginationX extends React.Component {
                 },1000)
             }
             if (page > 2) {
-                data=res.data.map((item,index)=>{item.no= (1+index) +((page-1) * this.state.pageSize); return item});
+                data=res.data.orders.map((item,index)=>{item.no= (1+index) +((page-1) * this.state.pageSize); return item});
             }
             else if(page ===2){
-                data=res.data.map((item,index)=>{item.no= 1+index + this.state.pageSize; return item});
+                data=res.data.orders.map((item,index)=>{item.no= 1+index + this.state.pageSize; return item});
                 
             }
             else{
-                data=res.data.map((item,index)=>{item.no= ++index ; return item});
+                data=res.data.orders.map((item,index)=>{item.no= ++index ; return item});
             }
              
-            if (res.headers['x-pagination']) {
-                const serverPagination=JSON.parse(res.headers['x-pagination']);
-                            this.setState({totalItems:serverPagination.totalCount,totalPages:serverPagination.totalPages});
-                        }
- 
+            // if (res.headers['x-pagination']) {
+            //     const serverPagination=JSON.parse(res.headers['x-pagination']);
+            //                 this.setState({totalItems:serverPagination.totalCount,totalPages:serverPagination.totalPages});
+            //             }
+            this.setState({totalPages:res.data.pages})
         if (page < 1 || (pager.totalPages !==0 && page > pager.totalPages) ) {
             return;
         }

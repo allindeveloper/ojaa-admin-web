@@ -61,13 +61,13 @@ class JwtAuthService {
 
   // You need to send http requst with existing token to your server to check token is valid
   // This method is being used when user logged in & app is reloaded
-  loginWithToken = (loginService) => {
-    return new Promise((resolve, reject) => {
+  loginWithToken = async (loginService) => {
+    return new  Promise( async (resolve, reject) => {
       // setTimeout(() => {
       //   resolve(this.user);
       // }, 100);
       const id = JSON.parse(localStorage.getItem("_id"));
-      loginService.getUserById(USER,id)
+      await loginService.getUserById(USER,id)
       .then((response)=>{
         if(response.data.status === "ok"){
         const user = {
@@ -106,8 +106,8 @@ class JwtAuthService {
       localStorage.setItem("_id", JSON.stringify(id));
       axios.defaults.headers.common["Authorization"] = "Bearer " + token;
     } else {
-      localStorage.removeItem("jwt_token");
-      localStorage.removeItem("_id");
+      // localStorage.removeItem("jwt_token");
+      // localStorage.removeItem("_id");
       delete axios.defaults.headers.common["Authorization"];
     }
   };

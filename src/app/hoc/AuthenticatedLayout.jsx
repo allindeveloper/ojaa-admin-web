@@ -33,7 +33,7 @@ class AuthenticatedLayout extends React.Component {
      let tk = localStorage.getItem("jwt_token")
     //  let userDTO = JSON.parse(localStorage.getItem("TRACKITUSER"))
      const AUTH_TOKEN = `${tk}`;
-    //  debugger;
+      debugger;
     // the token in LocalStorage was set on Login
      const ServiceBase = this.props.Service(AUTH_TOKEN)
 

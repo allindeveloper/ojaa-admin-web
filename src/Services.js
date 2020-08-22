@@ -11,12 +11,20 @@ export const Service = (baseUrl, Axios, token) => {
 		return `${controller}/${action}/`;
 	}
 
+	const getRestUrl = (controller, action) => {
+		return `${controller}/${action}`;
+	}
+
 	const getApiv1Url = (controller, action) => {
 		return `${controller}`;
 	}
 
 	const getAllItems = (controller, action, data) => {
 		return instance.post(getApiUrl(controller, action), data);
+	}
+
+	const getCompletedOrders = (controller, action, pageNumber) => {
+		return instance.get(`${getRestUrl(controller, action)}?page=${pageNumber}`);
 	}
 
 	const getItems = (controller) => {
@@ -47,6 +55,7 @@ export const Service = (baseUrl, Axios, token) => {
 
 
 	return {
+		getCompletedOrders,
 		getAllItems,
 		createItem,
 		userLogin,
