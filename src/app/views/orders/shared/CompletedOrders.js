@@ -48,21 +48,6 @@ class CompletedOrders extends Component {
     this.setState({ searchData: { PageSize: this.state.PageSize } });
   }
 
-  // componentDidMount() {
-  //   console.log("props in ordders", this.props);
-  //   // this.props.ServiceBase,
-  //   // call endpoint to get data
-
-  //   const { ORDERS, COMPLETED } = this.props.Constants;
-  //   this.props.ServiceBase.getCompletedOrders(ORDERS, COMPLETED, 1)
-  //     .then(({ data }) => {
-  //       this.setState({ orders: data.orders });
-  //     })
-  //     .catch((err) => {
-  //       // console.log(err.response,err)
-  //     });
-  // }
-
   sortFunc = (data) => {
     return data.sort((a, b) => {
       if (a.Name === undefined || a.Name === null) {
