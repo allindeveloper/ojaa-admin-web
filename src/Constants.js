@@ -8,7 +8,8 @@ export const ORDERS = "orders";
 export const COMPLETED = "completed";
 export const DELIVERING = "deliverying";
 export const PENDING = "pending";
-
+export const STATS = "stats";
+export const TOP_CUSTOMERS = "topCustomers";
 export const GET_USER_BY_EMAIL = "GetUserByEmail";
 const DEMO = {
     BLANK_LINK: "#!",

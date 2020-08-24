@@ -30,6 +30,10 @@ export const Service = (baseUrl, Axios, token) => {
 	const getActiveOrders = (controller, action, pageNumber) => {
 		return instance.get(`${getRestUrl(controller, action)}?page=${pageNumber}`);
 	}
+
+	const getTopCustomers= (controller, action) => {
+		return instance.get(`${getRestUrl(controller, action)}`);
+	}
 	const getItems = (controller) => {
 		return instance.get(getApiv1Url(controller));
 	}
@@ -63,6 +67,7 @@ export const Service = (baseUrl, Axios, token) => {
 		getAllItems,
 		createItem,
 		userLogin,
+		getTopCustomers,
 		editItem,
 		getItems,
 		getUserById,
