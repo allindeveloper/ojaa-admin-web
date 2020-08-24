@@ -18,13 +18,18 @@ class Dashboard1 extends Component {
     super(props);
     this.state = {
       topCustomers: [],
-      loadingtopCustomers:true
+      loadingtopCustomers:true,
+      newOrders: 0,
+      activeOrders: 0,
+      completedOrders: 0,
+      loadingCounts:true,
+      pieChartData: []
     };
   }
 
   componentDidMount() {
     console.log("props", this.props);
-    const { STATS, TOP_CUSTOMERS } = this.props.Constants;
+    const { STATS, TOP_CUSTOMERS ,ORDERS, COUNT} = this.props.Constants;
     this.props.ServiceBase.getTopCustomers(STATS, TOP_CUSTOMERS)
       .then((response) => {
         console.log("response", response.data);
@@ -35,12 +40,40 @@ class Dashboard1 extends Component {
       .catch((err) => {
         console.log("err getting top customers", err);
       });
+      this.props.ServiceBase.getItems(ORDERS, COUNT)
+      .then((response) => {
+        if(response.status === 200){
+          console.log("response counts", response.data);
+          const {newOrders,activeOrders, completedOrders} = response.data
+          this.setState({newOrders,activeOrders,completedOrders, loadingCounts:false},()=>{
+            this.setState({pieChartData:this.formatPieChartData(completedOrders,activeOrders,newOrders)})
+          })
+        }
+      })
+      .catch((err) => {
+        console.log("err getting top customers", err);
+      });
+      
+  }
+
+  formatPieChartData = (completedOrders, activeOrders, newOrders) => {
+    return  [
+      {
+        value: completedOrders,
+        name: "Completed Orders"
+      },
+      {
+        value: activeOrders,
+        name: "Active Orders"
+      },
+      { value: newOrders, name: "New Orders" }
+    ]
   }
 
   render() {
     let { theme } = this.props;
-    const {topCustomers,loadingtopCustomers} = this.state;
-    console.log("props in dashboard", this.props);
+    const {topCustomers,loadingtopCustomers, newOrders, completedOrders, activeOrders, loadingCounts,pieChartData} = this.state;
+    console.log("pie chart data", this.state.pieChartData);
     return (
       <Fragment>
         <div className="pb-86 pt-30 px-30 bg-primary">
@@ -79,7 +112,7 @@ class Dashboard1 extends Component {
         <div className="analytics m-sm-30 mt--72">
           <Grid container spacing={3}>
             <Grid item lg={8} md={8} sm={12} xs={12}>
-              <StatCards theme={theme} {...this.props} />
+              <StatCards theme={theme} {...this.props} loadingCounts={loadingCounts} newOrders={newOrders} activeOrders={activeOrders} completedOrders={completedOrders} />
 
               {/* Top Selling Products */}
               <TableCard topCustomers={topCustomers} loadingtopCustomers={loadingtopCustomers}/>
@@ -88,9 +121,10 @@ class Dashboard1 extends Component {
             <Grid item lg={4} md={4} sm={12} xs={12}>
               <Card className="px-24 py-16 mb-16">
                 <div className="card-title">All Orders</div>
-                <div className="card-subtitle">Last 30 days</div>
+                <div className="card-subtitle">All Time</div>
                 <DoughnutChart
                   height="300px"
+                  pieChartData={pieChartData}
                   color={["#ff6f00", "#ffeb3b", "#388e3c"]}
                 />
               </Card>

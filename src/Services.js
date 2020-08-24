@@ -34,8 +34,8 @@ export const Service = (baseUrl, Axios, token) => {
 	const getTopCustomers= (controller, action) => {
 		return instance.get(`${getRestUrl(controller, action)}`);
 	}
-	const getItems = (controller) => {
-		return instance.get(getApiv1Url(controller));
+	const getItems = (controller, actoion) => {
+		return instance.get(getApiUrl(controller,actoion));
 	}
 
 	const createItem = (data, controller, action) => {

@@ -2,7 +2,8 @@ import React from "react";
 import ReactEcharts from "echarts-for-react";
 import { withStyles } from "@material-ui/styles";
 
-const DoughnutChart = ({ height, color = [], theme }) => {
+const DoughnutChart = ({ height, color = [], theme, pieChartData }) => {
+  console.log("data in goungnut", pieChartData)
   const option = {
     legend: {
       show: true,
@@ -43,7 +44,7 @@ const DoughnutChart = ({ height, color = [], theme }) => {
 
     series: [
       {
-        name: "Traffic Rate",
+        name: "Orders Category",
         type: "pie",
         radius: ["45%", "72.55%"],
         center: ["50%", "50%"],
@@ -76,17 +77,7 @@ const DoughnutChart = ({ height, color = [], theme }) => {
             show: false
           }
         },
-        data: [
-          {
-            value: 65,
-            name: "Completed Orders"
-          },
-          {
-            value: 20,
-            name: "Active Orders"
-          },
-          { value: 15, name: "New Orders" }
-        ],
+        data: pieChartData,
         itemStyle: {
           emphasis: {
             shadowBlur: 10,
