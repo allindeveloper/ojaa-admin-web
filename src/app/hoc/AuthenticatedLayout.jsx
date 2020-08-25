@@ -29,17 +29,17 @@ class AuthenticatedLayout extends React.Component {
   }
   componentDidMount() {
     // let user = mockUser;
-    console.log("calling didmount")
-     let tk = localStorage.getItem("jwt_token")
+    console.log("calling didmount");
+    let tk = localStorage.getItem("jwt_token");
     //  let userDTO = JSON.parse(localStorage.getItem("TRACKITUSER"))
-     const AUTH_TOKEN = `${tk}`;
+    const AUTH_TOKEN = `${tk}`;
     // the token in LocalStorage was set on Login
-     const ServiceBase = this.props.Service(AUTH_TOKEN)
-     
-     this.setState({ ServiceBase: ServiceBase },()=>{
-      this.setState({ sending: false })
-     });
-     
+    const ServiceBase = this.props.Service(AUTH_TOKEN);
+    debugger;
+    this.setState({ ServiceBase: ServiceBase }, () => {
+      this.setState({ sending: false });
+    });
+
     // api call would be made to get detailed user information then the user state would be set and cascaded to all wrapper.
   }
 
@@ -100,14 +100,12 @@ class AuthenticatedLayout extends React.Component {
   };
 
   render() {
-    console.log("rendering--auth",this.props)
-    const {sending} = this.state;
+    console.log("rendering--auth", this.props);
+    const { sending } = this.state;
     return (
-       <React.Fragment>
-    { (!sending) && <MatxLayout  {...this.props}/>
-  }</React.Fragment>
-        
-       
+      <React.Fragment>
+        {/* {!sending && <MatxLayout {...this.props} />} */}
+      </React.Fragment>
     );
   }
 }

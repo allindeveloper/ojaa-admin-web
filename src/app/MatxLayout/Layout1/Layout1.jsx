@@ -41,12 +41,13 @@ class Layout1 extends Component {
      let tk = localStorage.getItem("jwt_token")
     //  let userDTO = JSON.parse(localStorage.getItem("TRACKITUSER"))
      const AUTH_TOKEN = `${tk}`;
-    //  debugger;
     // the token in LocalStorage was set on Login
      const ServiceBase = this.props.Service(AUTH_TOKEN)
 
-     this.setState({ ServiceBase: ServiceBase });
-     this.setState({ sending: false })
+     this.setState({ ServiceBase: ServiceBase },()=>{
+      this.setState({ sending: false })
+     });
+     
     // api call would be made to get detailed user information then the user state would be set and cascaded to all wrapper.
   }
   componentWillUnmount() {

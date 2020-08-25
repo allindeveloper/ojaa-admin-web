@@ -38,7 +38,6 @@ instance
       const config = res.data;
 
       sessionStorage.setItem("ApiBaseUrl", config.baseURL);
-
       ReactDOM.render(
         <AppContext.Provider value={{ routes }}>
           <Provider store={Store}>

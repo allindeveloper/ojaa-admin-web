@@ -60,13 +60,13 @@ class Dashboard1 extends Component {
     return  [
       {
         value: completedOrders,
-        name: "Completed "
+        name: "Completed Orders"
       },
       {
         value: activeOrders,
-        name: "Active "
+        name: "Active Orders"
       },
-      { value: newOrders, name: "New" }
+      { value: newOrders, name: "New Orders" }
     ]
   }
 
