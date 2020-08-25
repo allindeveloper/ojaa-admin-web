@@ -12,7 +12,7 @@ const redirectRoute = [
   {
     path: "/",
     exact: true,
-    component: () => <Redirect to="/home/dashboard" />
+    component: () => <Redirect to="/session/signin" />
   }
 ];
 
@@ -28,7 +28,7 @@ const routes = [
   ...ordersRoutes,
   ...settingsRoutes,
   ...complaintsRoutes,
-  // ...redirectRoute,
+  ...redirectRoute,
   ...errorRoute
 ];
 

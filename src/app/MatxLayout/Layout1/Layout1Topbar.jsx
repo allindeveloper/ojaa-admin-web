@@ -106,7 +106,7 @@ class Layout1Topbar extends Component {
                     //   src="/assets/images/face-6.jpg"
                     //   alt="user"
                     // />
-                    <AccountCircleIcon style={{ fontSize: 30, color:"white" }}/>
+                    <AccountCircleIcon style={{ fontSize: 30, color:"white", cursor:"pointer" }}/>
                   }
                 >
                   <MenuItem style={{ minWidth: 185 }}>

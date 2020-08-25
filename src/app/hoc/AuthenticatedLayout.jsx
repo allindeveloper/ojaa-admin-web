@@ -12,7 +12,7 @@ class AuthenticatedLayout extends React.Component {
     this.state = {
       user: { userobj: {} },
       token: "",
-      sending: false,
+      sending: true,
       page: {},
       showSideBar: false,
       permissions: [],
@@ -35,9 +35,11 @@ class AuthenticatedLayout extends React.Component {
      const AUTH_TOKEN = `${tk}`;
     // the token in LocalStorage was set on Login
      const ServiceBase = this.props.Service(AUTH_TOKEN)
-
-     this.setState({ ServiceBase: ServiceBase });
-     this.setState({ sending: false })
+     
+     this.setState({ ServiceBase: ServiceBase },()=>{
+      this.setState({ sending: false })
+     });
+     
     // api call would be made to get detailed user information then the user state would be set and cascaded to all wrapper.
   }
 
@@ -99,28 +101,13 @@ class AuthenticatedLayout extends React.Component {
 
   render() {
     console.log("rendering--auth",this.props)
+    const {sending} = this.state;
     return (
-      // <React.Fragment>
-      <MatxLayout  {...this.props}/>
-      // {/* </React.Fragment> */}
-      // <div>
-      //   {this.state.sending && <div>Loading</div>}
-      //   {!this.state.sending && (
-      //     <div>
-      //       {/* <IdleTimer
-      //         ref={(ref) => {
-      //           this.idleTimer = ref;
-      //         }}
-      //         timeout={10000}
-      //         onActive={this.handleOnActive}
-      //         onIdle={this.handleOnIdle}
-      //         onAction={this.handleOnAction}
-      //         // debounce={250}
-      //       /> */}
-      //       <MatxLayout  {...this.props} {...this.state}/>
-      //     </div>
-      //   )}
-      // </div>
+       <React.Fragment>
+    { (!sending) && <MatxLayout  {...this.props}/>
+  }</React.Fragment>
+        
+       
     );
   }
 }
