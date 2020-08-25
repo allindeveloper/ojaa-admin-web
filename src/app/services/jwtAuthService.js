@@ -107,7 +107,9 @@ class JwtAuthService {
   };
 
   logout = () => {
-    this.setSession(null);
+    localStorage.removeItem("jwt_token");
+    localStorage.removeItem("_id");
+    localStorage.removeItem("auth_user");
     this.removeUser();
   }
 
