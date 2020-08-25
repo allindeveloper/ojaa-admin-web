@@ -8,14 +8,14 @@ const StatCards = (props) => {
   const openNewOrders = () => {
     console.log("props", props);
     props.history.push({
-      pathname: "/app/orders",
+      pathname: "/home/orders",
       state: { tab: 0 },
     });
   };
   const openActiveOrders = () => {
     console.log("props", props);
     props.history.push({
-      pathname: "/app/orders",
+      pathname: "/home/orders",
       state: { tab: 1 },
     });
   };
@@ -23,7 +23,7 @@ const StatCards = (props) => {
   const openCompletedOrders = () => {
     console.log("props", props);
     props.history.push({
-      pathname: "/app/orders",
+      pathname: "/home/orders",
       state: { tab: 2 },
     });
   };

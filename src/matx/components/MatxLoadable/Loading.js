@@ -11,16 +11,16 @@ const useStyles = makeStyles(theme => ({
     margin: "auto",
     height: "40px",
     width: "40px",
-    "& img": {
-      position: "absolute",
-      height: "30px",
-      width: "auto",
-      top: 0,
-      bottom: 0,
-      left: 0,
-      right: 0,
-      margin: "auto"
-    }
+    // "& img": {
+    //   position: "absolute",
+    //   height: "30px",
+    //   width: "auto",
+    //   top: 0,
+    //   bottom: 0,
+    //   left: 0,
+    //   right: 0,
+    //   margin: "auto"
+    // }
   }
 }));
 
@@ -29,7 +29,7 @@ const Loading = props => {
 
   return (
     <div className={classes.loading}>
-      <img src="/assets/images/brandLogo.png" width="200%" alt="" />
+      {/* <img src="/assets/images/brandLogo.png" width="200%" alt="" /> */}
       <CircularProgress />
     </div>
   );
