@@ -1,6 +1,4 @@
 export const Service = (baseUrl, Axios, token) => {
-	console.log("tokeen", token)
-	// debugger;
 	const instance = Axios.create({
 		baseURL: baseUrl,
 		headers: { 'Authorization': token }

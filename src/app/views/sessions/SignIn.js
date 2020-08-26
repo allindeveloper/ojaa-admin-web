@@ -15,6 +15,8 @@ import { withRouter } from "react-router-dom";
 import PersonIcon from "@material-ui/icons/Person";
 import { loginWithEmailAndPassword } from "../../redux/actions/LoginActions";
 import clsx from "clsx";
+import { toast } from "react-toastify";
+import jwtAuthService from "app/services/jwtAuthService";
 
 const styles = (theme) => ({
   wrapper: {
@@ -49,6 +51,7 @@ class SignIn extends Component {
     email: "",
     password: "",
     agreement: "",
+    loading: false
   };
   handleChange = (event) => {
     event.persist();
@@ -58,12 +61,51 @@ class SignIn extends Component {
   };
   handleFormSubmit = (event) => {
     const loginService = this.props.Service (null,null);
-
-    console.log("loginService", loginService)
-    this.props.loginWithEmailAndPassword({ ...this.state},this.props.history,loginService);
+    this.setState({loading:true});
+    const {LOGIN} = this.props.Constants;
+    const payload ={
+      user : this.state.email,
+      password: this.state.password
+    }
+    loginService.userLogin(payload,LOGIN)
+      .then((response)=>{
+        if(response.data.status === "ok"){
+        const user = {
+          token:response.data.token,
+          ...response.data.user
+        }
+        jwtAuthService.setSession(user.token, user._id)
+        jwtAuthService.setUser(user)
+        this.props.history.push("/home/dashboard");
+        
+        
+      }
+      })
+      .catch((err)=>{
+        if(err){
+        this.setState({loading:false})
+        if(err.response.data){
+          this.setState({loading:false})
+          const {error} = err.response.data;
+          toast.error( error, {
+            position: toast.POSITION.TOP_RIGHT,
+            autoClose:5000
+          });
+          return
+        }
+        }
+        if(err.response === undefined){
+          this.setState({loading:false})
+          toast.error( "Check your network or try again", {
+            position: toast.POSITION.TOP_RIGHT,
+            autoClose:5000
+          });
+        }
+       
+      })
   };
   render() {
-    let { email, password } = this.state;
+    let { email, password , loading} = this.state;
     let { classes } = this.props;
     return (
       <section className="sessionSignin" style={{
@@ -102,7 +144,7 @@ class SignIn extends Component {
                       fullWidth={true}
                       validators={["required", "isEmail"]}
                       errorMessages={[
-                        "this field is required",
+                        "Email is required",
                         "email is not valid",
                       ]}
                       autoComplete={"false"}
@@ -117,7 +159,7 @@ class SignIn extends Component {
                       value={password}
                       fullWidth={true}
                       validators={["required"]}
-                      errorMessages={["this field is required"]}
+                      errorMessages={["Password is required"]}
                     />
 
                     <div className="flex flex-middle mb-8">
@@ -137,7 +179,7 @@ class SignIn extends Component {
                         <Button
                           variant="contained"
                           className={clsx(classes.loginButton)}
-                          disabled={this.props.login.loading}
+                          disabled={this.state.loading}
                           type="submit"
                           disableRipple
                         >
@@ -145,7 +187,7 @@ class SignIn extends Component {
                         </Button>
                       </Grid>
 
-                      {this.props.login.loading && (
+                      {this.state.loading && (
                         <CircularProgress
                           size={24}
                           className={classes.buttonProgress}

@@ -28,7 +28,7 @@ class Auth extends Component {
 
   componentWillMount(){
     const loc = window.location.pathname
-    if( loc !== "/session/signin"){
+    if( loc.includes("home")){
       this.checkJwtAuth();
     }
   }
