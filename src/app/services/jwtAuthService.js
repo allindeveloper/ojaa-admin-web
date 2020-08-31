@@ -59,32 +59,35 @@ class JwtAuthService {
   };
 
   logout = () => {
-    localStorage.removeItem("jwt_token");
-    localStorage.removeItem("_id");
-    localStorage.removeItem("auth_user");
+    localStorage.removeItem("OJAA_");
+    localStorage.removeItem("OJAA_USER");
     this.removeUser();
   }
 
   // Set token to all http request header, so you don't need to attach everytime
   setSession = (token,id) => {
     if (token) {
-      localStorage.setItem("jwt_token", token);
-      localStorage.setItem("_id", JSON.stringify(id));
+      localStorage.setItem("OJAA_", JSON.stringify(token));
       axios.defaults.headers.common["Authorization"] = "Bearer " + token;
     } else {
       // localStorage.removeItem("jwt_token");
       // localStorage.removeItem("_id");
-      delete axios.defaults.headers.common["Authorization"];
+     // delete axios.defaults.headers.common["Authorization"];
     }
   };
 
+  setAuth = (token) =>{
+    // debugger;
+    axios.defaults.headers.common["Authorization"] = "Bearer " + token;
+  }
+
   // Save user to localstorage
   setUser = (user) => {    
-    localStorageService.setItem("auth_user", user);
+    localStorageService.setItem("OJAA_USER", user);
   }
   // Remove user from localstorage
   removeUser = () => {
-    localStorage.removeItem("auth_user");
+    localStorage.removeItem("OJAA_USER");
   }
 }
 

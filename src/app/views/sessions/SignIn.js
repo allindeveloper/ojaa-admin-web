@@ -74,8 +74,10 @@ class SignIn extends Component {
           token:response.data.token,
           ...response.data.user
         }
-        jwtAuthService.setSession(user.token, user._id)
-        jwtAuthService.setUser(user)
+        console.log("user after login", user)
+        localStorage.setItem("OJAA_", JSON.stringify(user.token));
+        localStorage.setItem("OJAA_USER", JSON.stringify(user));
+        jwtAuthService.setAuth(user.token)
         this.props.history.push("/home/dashboard");
         
         

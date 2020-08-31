@@ -1,7 +1,12 @@
 export const Service = (baseUrl, Axios, token) => {
-	const instance = Axios.create({
+	let tkEncrypt = JSON.parse(localStorage.getItem("OJAA_"));
+
+	const AUTH = token === null ? tkEncrypt : token;
+	console.log("tokeen", AUTH)
+
+    const instance = Axios.create({
 		baseURL: baseUrl,
-		headers: { 'Authorization': token }
+		headers: { 'Authorization': AUTH }
 		// you can add other headers here which has been passed from AuthorizedLayout as arguments
 	});
 

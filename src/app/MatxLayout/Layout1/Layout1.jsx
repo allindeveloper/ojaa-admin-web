@@ -37,16 +37,18 @@ class Layout1 extends Component {
 
   componentDidMount() {
     // let user = mockUser;
-    console.log("calling didmount")
-     let tk = localStorage.getItem("jwt_token")
-    //  let userDTO = JSON.parse(localStorage.getItem("TRACKITUSER"))
-     const AUTH_TOKEN = `${tk}`;
-    // the token in LocalStorage was set on Login
-     const ServiceBase = this.props.Service(AUTH_TOKEN)
+    // console.log("calling didmount")
+    // let tkEncrypt = JSON.parse(localStorage.getItem("OJAA_"))
+    // let userEncrypt = JSON.parse(localStorage.getItem("OJAA_USER"));
+    // //  let userDTO = JSON.parse(localStorage.getItem("TRACKITUSER"))
+    // console.log("tkEncrypt", tkEncrypt)
+    //  const AUTH_TOKEN = `Bearer ${tkEncrypt}`;
+    // // the token in LocalStorage was set on Login
+    //  const ServiceApi = this.props.Service(AUTH_TOKEN)
 
-     this.setState({ ServiceBase: ServiceBase },()=>{
-      this.setState({ sending: false })
-     });
+    //  this.setState({ ServiceBase: ServiceApi },()=>{
+    //   this.setState({ sending: false })
+    //  });
      
     // api call would be made to get detailed user information then the user state would be set and cascaded to all wrapper.
   }
@@ -80,11 +82,11 @@ class Layout1 extends Component {
       ...this.props,
       ...this.state
     }
-    console.log("extraprops",extraProps)
     return (
       <AppContext.Consumer>
         {({ routes }) => (
-          <>{ (!this.state.sending) &&
+          <>
+          {/* { (!this.state.sending) && */}
           <div className={classList(layoutClasses)}>
             {layout1Settings.leftSidebar.show && <Layout1Sidenav />}
 
@@ -116,7 +118,8 @@ class Layout1 extends Component {
               {/* {settings.footer.show && settings.footer.fixed && <Footer />} */}
             </div>
           </div>
-  }</>
+  {/* } */}
+  </>
         )}
       </AppContext.Consumer>
     );

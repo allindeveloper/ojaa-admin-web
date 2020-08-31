@@ -17,7 +17,9 @@ class MatxLayout extends Component {
     super(props);
     this.appContext = context;
     this.updateSettingsFromRouter();
-
+    this.state={
+      sending:true
+    }
     // Set settings from query (Only for demo purpose)
     this.setLayoutFromQuery();
   }
@@ -26,6 +28,22 @@ class MatxLayout extends Component {
     if (this.props.location.pathname !== prevProps.location.pathname) {
       this.updateSettingsFromRouter();
     }
+  }
+
+  componentDidMount(){
+    console.log("calling didmount")
+    let tkEncrypt = JSON.parse(localStorage.getItem("OJAA_"))
+    let userEncrypt = JSON.parse(localStorage.getItem("OJAA_USER"));
+    //  let userDTO = JSON.parse(localStorage.getItem("TRACKITUSER"))
+    console.log("tkEncrypt", tkEncrypt)
+     const AUTH_TOKEN = `Bearer ${tkEncrypt}`;
+    // the token in LocalStorage was set on Login
+    console.log("auth token", AUTH_TOKEN)
+     const ServiceApi = this.props.Service(AUTH_TOKEN)
+
+     this.setState({ ServiceBase: ServiceApi },()=>{
+      this.setState({ sending: false })
+     });
   }
 
   componentWillMount() {
@@ -89,8 +107,9 @@ class MatxLayout extends Component {
   render() {
     const { settings } = this.props;
     const Layout = MatxLayouts[settings.activeLayout];
+    console.log("passing matxlayout",this.state)
 
-    return <Layout {...this.props} />;
+    return <>{(!this.state.sending)&&<Layout {...this.props} {...this.state} />}</>;
   }
 }
 
