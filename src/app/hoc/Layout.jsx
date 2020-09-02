@@ -4,6 +4,7 @@ import Loader from '../components/Loader/Loader'
 import Aux from "./_Aux";
 import  AuthenticatedLayout from "./AuthenticatedLayout";
 import SignIn from "app/views/sessions/SignIn";
+import MatxLayout from "app/MatxLayout/MatxLayout";
 
 
 export class Layout extends React.Component {
@@ -27,7 +28,7 @@ export class Layout extends React.Component {
        
           {/* All unthenticated Routes will go here */}
           {/* login, reset-password, update-password */}
-        <div>
+        <>
           <Route
             path={"/"}
             exact
@@ -37,9 +38,17 @@ export class Layout extends React.Component {
         {/* All authenticated routes will be embedded in AuthenticatedLayout */}
           <Route
             path="/home"
-            render={props => <AuthenticatedLayout {...this.props} />}
+            render={props => (
+            <>
+            <AuthenticatedLayout {...this.props}>
+              <MatxLayout 
+              {...this.props}
+              />
+            </AuthenticatedLayout>
+            </>
+            )}
           />
-          </div>
+          </>
 
 
       </Router>

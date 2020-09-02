@@ -45,10 +45,14 @@ instance
               <Router history={history}>
                 {/* <AuthGuard> */}
                 <Auth Service={Service.bind(null, config.baseURL, Axios)}>
-                  <MatxLayout
+                  <Layout 
+                  Constants={Constants}
+                  Service={Service.bind(null, config.baseURL, Axios)}
+                  />
+                  {/* <MatxLayout
                     Constants={Constants}
                     Service={Service.bind(null, config.baseURL, Axios)}
-                  />
+                  /> */}
                   {/* </AuthGuard> */}
                 </Auth>
                 <ToastContainer />

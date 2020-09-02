@@ -35,7 +35,7 @@ class AuthenticatedLayout extends React.Component {
     const AUTH_TOKEN = `${tk}`;
     // the token in LocalStorage was set on Login
     const ServiceBase = this.props.Service(AUTH_TOKEN);
-    debugger;
+    //debugger;
     this.setState({ ServiceBase: ServiceBase }, () => {
       this.setState({ sending: false });
     });
@@ -103,9 +103,12 @@ class AuthenticatedLayout extends React.Component {
     console.log("rendering--auth", this.props);
     const { sending } = this.state;
     return (
-      <React.Fragment>
-        {/* {!sending && <MatxLayout {...this.props} />} */}
-      </React.Fragment>
+      // <React.Fragment>
+      //   {/* {!sending && <MatxLayout {...this.props} />} */}
+      // </React.Fragment>
+      <>
+      {this.props.children}
+      </>
     );
   }
 }

@@ -19,7 +19,7 @@ export function logoutUser(history) {
     jwtAuthService.logout();
 
     history.push({
-      pathname: "/session/signin"
+      pathname: "/"
     });
 
     dispatch({
