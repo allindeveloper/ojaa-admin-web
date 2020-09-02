@@ -14,11 +14,15 @@ export const navigations = [
     icon: "info",
     path: "/home/complaints"
   },
-
   {
-    name: "Settings",
-    icon: "settings",
-    path: "/home/settings"
+    name: "Products",
+    icon: "loyalty",
+    path: "/home/products"
   },
+  // {
+  //   name: "Settings",
+  //   icon: "settings",
+  //   path: "/home/settings"
+  // },
   
 ];

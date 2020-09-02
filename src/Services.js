@@ -1,5 +1,4 @@
 export const Service = (baseUrl, Axios, token) => {
-	console.log("tokeen", token)
 	//let tkEncrypt = JSON.parse(localStorage.getItem("OJAA_"))
     const instance = Axios.create({
 		baseURL: baseUrl,
@@ -15,7 +14,7 @@ export const Service = (baseUrl, Axios, token) => {
 		return `${controller}/${action}`;
 	}
 
-	const getApiv1Url = (controller, action) => {
+	const getApiv1Url = (controller) => {
 		return `${controller}`;
 	}
 
@@ -29,6 +28,10 @@ export const Service = (baseUrl, Axios, token) => {
 
 	const getActiveOrders = (controller, action, pageNumber) => {
 		return instance.get(`${getRestUrl(controller, action)}?page=${pageNumber}`);
+	}
+
+	const getProducts = (controller, pageNumber) => {
+		return instance.get(`${getApiv1Url(controller)}?page=${pageNumber}`);
 	}
 
 	const getTopCustomers= (controller, action) => {
@@ -63,6 +66,7 @@ export const Service = (baseUrl, Axios, token) => {
 
 	return {
 		getCompletedOrders,
+		getProducts,
 		getActiveOrders,
 		getAllItems,
 		createItem,

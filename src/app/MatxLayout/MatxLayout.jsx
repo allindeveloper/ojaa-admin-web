@@ -35,10 +35,8 @@ class MatxLayout extends Component {
     let tkEncrypt = JSON.parse(localStorage.getItem("OJAA_"))
     let userEncrypt = JSON.parse(localStorage.getItem("OJAA_USER"));
     //  let userDTO = JSON.parse(localStorage.getItem("TRACKITUSER"))
-    console.log("tkEncrypt", tkEncrypt)
      const AUTH_TOKEN = `Bearer ${tkEncrypt}`;
     // the token in LocalStorage was set on Login
-    console.log("auth token", AUTH_TOKEN)
      const ServiceApi = this.props.Service(AUTH_TOKEN)
 
      this.setState({ ServiceBase: ServiceApi },()=>{

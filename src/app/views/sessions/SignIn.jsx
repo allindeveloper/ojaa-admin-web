@@ -77,7 +77,11 @@ class SignIn extends Component {
         console.log("user after login", user)
         localStorage.setItem("OJAA_", JSON.stringify(user.token));
         localStorage.setItem("OJAA_USER", JSON.stringify(user));
-        jwtAuthService.setAuth(user.token)
+        jwtAuthService.setAuth(user.token);
+        toast.success( `Welcome ${user.firstName}`, {
+          position: toast.POSITION.TOP_RIGHT,
+          autoClose:5000
+        });
         this.props.history.push("/home/dashboard");
         
         

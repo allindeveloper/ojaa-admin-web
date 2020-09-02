@@ -11,9 +11,15 @@ export const PENDING = "pending";
 export const STATS = "stats";
 export const TOP_CUSTOMERS = "topCustomers";
 export const COUNT = "count";
+export const PRODUCTS = "products";
 export const GET_USER_BY_EMAIL = "GetUserByEmail";
 const DEMO = {
     BLANK_LINK: "#!",
 };
 
 export default DEMO;
+
+export const CategoryEnum = [
+  { label: "Grain", value: "grain" },
+  { label: "Cereal", value: "cereal" }
+]

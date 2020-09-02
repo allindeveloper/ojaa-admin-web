@@ -7,6 +7,7 @@ import sessionRoutes from "./views/sessions/SessionRoutes";
 import settingsRoutes from "./views/settings/settingsRoutes";
 import complaintsRoutes from "./views/complaints/complaintsRoutes";
 import ordersRoutes from "./views/orders/ordersRoutes";
+import productsRoutes from "./views/products/productsRoutes";
 
 const redirectRoute = [
   {
@@ -28,7 +29,8 @@ const routes = [
   ...ordersRoutes,
   ...settingsRoutes,
   ...complaintsRoutes,
-  ...redirectRoute,
+  ...productsRoutes,
+  // ...redirectRoute,
   ...errorRoute
 ];
 
