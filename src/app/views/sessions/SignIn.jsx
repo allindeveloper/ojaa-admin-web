@@ -13,10 +13,10 @@ import { connect } from "react-redux";
 import { PropTypes } from "prop-types";
 import { withRouter } from "react-router-dom";
 import PersonIcon from "@material-ui/icons/Person";
-import { loginWithEmailAndPassword } from "../../redux/actions/LoginActions";
 import clsx from "clsx";
 import { toast } from "react-toastify";
 import jwtAuthService from "app/services/jwtAuthService";
+import { setUserData } from "../../redux/actions/UserActions";
 
 const styles = (theme) => ({
   wrapper: {
@@ -78,6 +78,7 @@ class SignIn extends Component {
         localStorage.setItem("OJAA_", JSON.stringify(user.token));
         localStorage.setItem("OJAA_USER", JSON.stringify(user));
         jwtAuthService.setAuth(user.token);
+        this.props.setUserData(user);
         toast.success( `Welcome ${user.firstName}`, {
           position: toast.POSITION.TOP_RIGHT,
           autoClose:5000
@@ -90,6 +91,13 @@ class SignIn extends Component {
       .catch((err)=>{
         if(err){
         this.setState({loading:false})
+        if(err.response === undefined){
+          this.setState({loading:false})
+          toast.error( "Check your network or try again", {
+            position: toast.POSITION.TOP_RIGHT,
+            autoClose:5000
+          });
+        }
         if(err.response.data){
           this.setState({loading:false})
           const {error} = err.response.data;
@@ -100,13 +108,7 @@ class SignIn extends Component {
           return
         }
         }
-        if(err.response === undefined){
-          this.setState({loading:false})
-          toast.error( "Check your network or try again", {
-            position: toast.POSITION.TOP_RIGHT,
-            autoClose:5000
-          });
-        }
+        
        
       })
   };
@@ -188,6 +190,7 @@ class SignIn extends Component {
                           disabled={this.state.loading}
                           type="submit"
                           disableRipple
+                          style={{width:150}}
                         >
                           Login
                         </Button>
@@ -214,9 +217,9 @@ class SignIn extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  loginWithEmailAndPassword: PropTypes.func.isRequired,
+  setUserData: PropTypes.func.isRequired,
   login: state.login,
 });
 export default withStyles(styles, { withTheme: true })(
-  withRouter(connect(mapStateToProps, { loginWithEmailAndPassword })(SignIn))
+  withRouter(connect(mapStateToProps,   { setUserData })(SignIn))
 );

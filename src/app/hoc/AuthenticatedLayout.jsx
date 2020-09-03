@@ -5,6 +5,7 @@ import Swal from "sweetalert2";
 import { connect } from "react-redux";
 import MatxLayout from "app/MatxLayout/MatxLayout";
 import Axios from "axios";
+import { PropTypes } from "prop-types";
 
 class AuthenticatedLayout extends React.Component {
   constructor(props) {
@@ -31,6 +32,7 @@ class AuthenticatedLayout extends React.Component {
     // let user = mockUser;
     console.log("calling didmount");
     let tk = localStorage.getItem("jwt_token");
+    // this.props.setUserData(user);
     //  let userDTO = JSON.parse(localStorage.getItem("TRACKITUSER"))
     const AUTH_TOKEN = `${tk}`;
     // the token in LocalStorage was set on Login
@@ -112,9 +114,9 @@ class AuthenticatedLayout extends React.Component {
     );
   }
 }
-const mapStateToProps = (state) => {
-  return {};
-};
+const mapStateToProps = state => ({
+  setUserData: PropTypes.func.isRequired,
+});
 
 const mapDispatchToProps = (dispatch) => {
   return {};

@@ -6,7 +6,7 @@ import {
   Badge,
   MenuItem,
   withStyles,
-  MuiThemeProvider
+  MuiThemeProvider,
 } from "@material-ui/core";
 import { connect } from "react-redux";
 import { setLayoutSettings } from "app/redux/actions/LayoutActions";
@@ -17,18 +17,18 @@ import { isMdScreen } from "utils";
 import NotificationBar from "../SharedCompoents/NotificationBar";
 import { Link } from "react-router-dom";
 import ShoppingCart from "../SharedCompoents/ShoppingCart";
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 
-const styles = theme => ({
+const styles = (theme) => ({
   root: {
-    backgroundColor: theme.palette.primary.main
-  }
+    backgroundColor: theme.palette.primary.main,
+  },
 });
 
 class Layout1Topbar extends Component {
   state = {};
 
-  updateSidebarMode = sidebarSettings => {
+  updateSidebarMode = (sidebarSettings) => {
     let { settings, setLayoutSettings } = this.props;
 
     setLayoutSettings({
@@ -37,9 +37,9 @@ class Layout1Topbar extends Component {
         ...settings.layout1Settings,
         leftSidebar: {
           ...settings.layout1Settings.leftSidebar,
-          ...sidebarSettings
-        }
-      }
+          ...sidebarSettings,
+        },
+      },
     });
   };
 
@@ -57,7 +57,7 @@ class Layout1Topbar extends Component {
   };
 
   handleSignOut = () => {
-    console.log("history in logging out",this.props.history)
+    console.log("history in logging out", this.props.history);
     this.props.logoutUser(this.props.history);
   };
 
@@ -65,16 +65,26 @@ class Layout1Topbar extends Component {
     let { theme, settings, className, style } = this.props;
     const topbarTheme =
       settings.themes[settings.layout1Settings.topbar.theme] || theme;
+
+    console.log("user.props", this.props);
+    const { user } = this.props;
     return (
       <MuiThemeProvider theme={topbarTheme}>
         <div className="topbar">
           <div
             className={`topbar-hold ${className}`}
-            style={Object.assign({}, { backgroundColor: topbarTheme.palette.primary.main }, style)}
+            style={Object.assign(
+              {},
+              { backgroundColor: topbarTheme.palette.primary.main },
+              style
+            )}
           >
             <div className="flex flex-space-between flex-middle h-100">
               <div className="flex">
-                <IconButton onClick={this.handleSidebarToggle} className="hide-on-lg">
+                <IconButton
+                  onClick={this.handleSidebarToggle}
+                  className="hide-on-lg"
+                >
                   <Icon>menu</Icon>
                 </IconButton>
 
@@ -93,6 +103,10 @@ class Layout1Topbar extends Component {
                 </div>
               </div>
               <div className="flex flex-middle">
+                <label style={{ color: "white" }}>
+                  {" "}
+                  Welcome {user.lastName}
+                </label>
                 <MatxSearchBox />
 
                 {/* <NotificationBar /> */}
@@ -106,7 +120,13 @@ class Layout1Topbar extends Component {
                     //   src="/assets/images/face-6.jpg"
                     //   alt="user"
                     // />
-                    <AccountCircleIcon style={{ fontSize: 30, color:"white", cursor:"pointer" }}/>
+                    <AccountCircleIcon
+                      style={{
+                        fontSize: 30,
+                        color: "white",
+                        cursor: "pointer",
+                      }}
+                    />
                   }
                 >
                   <MenuItem style={{ minWidth: 185 }}>
@@ -152,13 +172,14 @@ class Layout1Topbar extends Component {
 Layout1Topbar.propTypes = {
   setLayoutSettings: PropTypes.func.isRequired,
   logoutUser: PropTypes.func.isRequired,
-  settings: PropTypes.object.isRequired
+  settings: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   setLayoutSettings: PropTypes.func.isRequired,
   logoutUser: PropTypes.func.isRequired,
-  settings: state.layout.settings
+  user: state.user,
+  settings: state.layout.settings,
 });
 
 export default withStyles(styles, { withTheme: true })(
