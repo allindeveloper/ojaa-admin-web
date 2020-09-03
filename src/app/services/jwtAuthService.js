@@ -25,7 +25,8 @@ class JwtAuthService {
       // setTimeout(() => {
       //   resolve(this.user);
       // }, 100);
-      const id = JSON.parse(localStorage.getItem("_id"));
+      const user = JSON.parse(localStorage.getItem("OJAA_USER"));
+      const id = user._id;
       await loginService.getUserById(USER,id)
       .then((response)=>{
         if(response.data.status === "ok"){

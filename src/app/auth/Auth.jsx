@@ -36,7 +36,7 @@ class Auth extends Component {
   checkJwtAuth = () => {
     // You need to send token to your server to check token is valid
     // modify loginWithToken method in jwtService
-    const AUTH_TOKEN = localStorage.getItem("jwt_token")
+    const AUTH_TOKEN = JSON.parse(localStorage.getItem("OJAA_"));
     const loginService = this.props.Service (AUTH_TOKEN);
     jwtAuthService.loginWithToken(loginService,this.props.history).then(user => {
 
