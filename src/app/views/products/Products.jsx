@@ -20,6 +20,9 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import CreateModal from "app/components/Modal/CreateModal";
 import ProductCreate from "./ProductCreate";
 import LoadingOverlay from "react-loading-overlay";
+import Swal from "sweetalert2";
+import { connect } from "react-redux";
+import { toast } from "react-toastify";
 
 const styles = (theme) => ({
   root: {
@@ -35,6 +38,8 @@ class Products extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      files: [],
+      fileImage:null,
       disableCreate: false,
       creating: false,
       createForm: false,
@@ -61,20 +66,63 @@ class Products extends React.Component {
     };
     window["deleteProduct"] = this.deleteProduct;
     window["editProduct"] = this.editProduct;
+    window["viewProduct"] = this.viewProduct;
   }
 
   componentDidMount() {
     // this.setState({ searchData: { PageSize: this.state.PageSize } });
+
+    console.log("props", this.props)
   }
 
-  onRowClick = (rowData, rowMeta) => {
-    console.log("rowData", rowData);
-    console.log("rowMeta", rowMeta);
-    let rowItems = this.state.pageOfItems[rowMeta.rowIndex];
+  componentWillUnmount() {
+    // Make sure to revoke the data uris to avoid memory leaks
+    this.state.files.forEach(file => URL.revokeObjectURL(file.preview));
+  }
+
+  viewProduct = (value, tableMeta, updateValue) => {
+    console.log("value", value);
+    console.log("tableMeta", tableMeta);
+    let rowItems = this.state.pageOfItems[tableMeta.rowIndex];
     console.log("rowitems", rowItems);
     this.setState({ productDetails: rowItems }, () => {
       this.setState({ isPaneOpen: true });
     });
+  };
+
+  deleteProduct = (value, tableMeta, updateValue) => {
+    console.log("adding");
+    console.log("value", value);
+    console.log("tableMeta", tableMeta);
+    console.log("updateValue", updateValue);
+    let rowItems = this.state.pageOfItems[tableMeta.rowIndex];
+    console.log("roww items", rowItems)
+    const {WEIGHT} = this.props.Constants
+    Swal.fire({
+      title: 'Are you sure you want to Delete this item ?',
+      showCancelButton: true,
+      confirmButtonText: 'Delete',
+      showLoaderOnConfirm: true,
+      preConfirm: (login) => {
+        return this.props.ServiceBase.deleteItem(WEIGHT, rowItems.id)
+        .then((response)=>{
+          console.log("response ", response.data)
+          //this.getWeightData();
+        })
+        .catch(error => {
+          Swal.showValidationMessage(
+            `Request failed: ${error}`
+          )
+        })
+      },
+      allowOutsideClick: () => !Swal.isLoading()
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: 'Item Deleted Successfully',
+        })
+      }
+    })
   };
 
   closeRightMenu = () => {
@@ -104,7 +152,56 @@ class Products extends React.Component {
     this.setState({ disableCreate: false, creating: false, createForm: false });
   };
 
-  onCreate = () => {};
+  editProduct = (value, tableMeta, updateValue) => {
+    console.log("tableMeta", tableMeta);
+    this.setState({ isRightOpen: false });
+    // let rowItems = this.state.rolesData[tableMeta.rowIndex];
+    
+  };
+
+  onCreate = () => {
+    this.setState({creating:true, disableCreate:true})
+    const {productCreateData, files} = this.state;
+    const  {user} = this.props;
+    const {PRODUCT} = this.props.Constants;
+    var formData = new FormData();
+formData.append('name', productCreateData.Title);
+formData.append('description', productCreateData.Description);
+formData.append('category', productCreateData.Category);
+formData.append('image', files[0]);
+formData.append('price', productCreateData.Price);
+formData.append('measure', productCreateData.Measurement);
+formData.append('user', user._id);
+    // for (const [key, value] of formData) {
+    //   console.log('»', key, value)
+    // }
+
+    this.props.ServiceBase.createProduct(PRODUCT,formData)
+    .then((response) => {
+      this.setState({creating:false, disableCreate:false,createForm:false})
+      console.log("response", response.data);
+      if(response.data.status === "ok"){
+        toast.error( "Product Added Successfully", {
+          position: toast.POSITION.TOP_RIGHT,
+          autoClose:5000
+        });
+      }
+      
+    })
+    .catch((err) => {
+      this.setState({creating:false, disableCreate:false})
+      console.log("err getting top customers", err.response.data);
+
+      if(err.response.data){
+        toast.error( err.response.data.error, {
+          position: toast.POSITION.TOP_RIGHT,
+          autoClose:5000
+        });
+      }
+
+    });
+
+  };
 
   handleInputChange = (input) => ({ target: { value } }) => {
     this.setState((prevState) => ({
@@ -139,6 +236,30 @@ class Products extends React.Component {
         },
       },
     });
+
+    addFile = file => {
+      console.log(file);
+      this.setState({
+        files: file.map(file =>
+          Object.assign(file, {
+            preview: URL.createObjectURL(file)
+          })
+        )
+      });
+    };
+
+     handleDrop = file =>{
+            console.log("accepted files", file)
+            this.setState({
+              files: file.map(file =>
+                Object.assign(file, {
+                  preview: URL.createObjectURL(file)
+                })
+              )
+            });
+
+     }
+    // this.setState({acceptedFiles: acceptedFiles})
 
   render() {
     let { classes } = this.props;
@@ -201,7 +322,7 @@ class Products extends React.Component {
                         pagination: false,
                         draggableColumns: { enabled: true },
                         elevation: 2,
-                        onRowClick: this.onRowClick,
+                        // onRowClick: this.onRowClick,
                         rowHover: true,
                         print: false,
                         filter: false,
@@ -210,7 +331,7 @@ class Products extends React.Component {
                   </MuiThemeProvider>
                 </LoadingOverlay>
                 <br></br>
-                {this.state.isSearching && (
+                {/* {this.state.isSearching && ( */}
                   <PaginationY
                     currentPage={this.state.currentPage}
                     service={this.props.ServiceBase.getProducts}
@@ -219,7 +340,7 @@ class Products extends React.Component {
                     searchData={this.state.searchData}
                     onChangePage={this.onChangePage}
                   />
-                )}
+                {/* )} */}
               </Grid>
             </Grid>
           </div>
@@ -311,6 +432,8 @@ class Products extends React.Component {
                 productCreateData={productCreateData}
                 handleInputChange={this.handleInputChange}
                 classes={classes}
+                files={this.state.files}
+                handleDrop={this.handleDrop}
               />
             }
           />
@@ -319,5 +442,9 @@ class Products extends React.Component {
     );
   }
 }
-
-export default withStyles(styles, { withTheme: true })(Products);
+const mapStateToProps = (state) => ({
+  user: state.user,
+});
+export default withStyles(styles, { withTheme: true })(
+  connect(mapStateToProps)(Products)
+);

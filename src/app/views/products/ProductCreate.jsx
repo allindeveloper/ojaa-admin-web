@@ -2,6 +2,7 @@ import React from "react";
 
 import { Grid, TextField, MenuItem } from "@material-ui/core";
 import { CategoryEnum } from "Constants";
+import ImageUpload from "app/components/Upload/ImageUpload";
 
 export default function ProductCreate(props) {
   const classes = props.classes;
@@ -50,26 +51,46 @@ export default function ProductCreate(props) {
             </form>{" "}
           </Grid>
         </Grid>
-
         <Grid>
-        <TextField
-                id="outlined-select-sector"
-                select
-                margin="normal"
-                required
-                fullWidth
-                value={productCreateData.Category}
-                label="Category"
-                variant="outlined"
-                onChange={props.handleInputChange("Category")}
-                
-              >
-                {CategoryEnum.map(option => (
-                  <MenuItem key={option.value} value={option.value}>
-                    {option.label}
-                  </MenuItem>
-                ))}
-              </TextField>
+          <TextField
+            id="outlined-select-sector"
+            select
+            margin="normal"
+            required
+            fullWidth
+            value={productCreateData.Category}
+            label="Category"
+            variant="outlined"
+            onChange={props.handleInputChange("Category")}
+          >
+            {CategoryEnum.map((option) => (
+              <MenuItem key={option.value} value={option.value}>
+                {option.label}
+              </MenuItem>
+            ))}
+          </TextField>
+        </Grid>
+        
+        <Grid>
+        <form className={classes.formroot} noValidate autoComplete="off">
+          <TextField
+            id="filled-basic"
+            label="Description"
+            value={productCreateData.Description}
+            name="Description"
+            variant="outlined"
+            multiline
+            rows={4}
+            onChange={props.handleInputChange("Description")}
+            fullWidth
+          />
+        </form>{" "}
+        </Grid>
+        {/* file upload and description */}
+        <Grid >
+          <>
+            <ImageUpload handleDrop={props.handleDrop} files={props.files} />
+          </>
         </Grid>
       </Grid>
     </Grid>

@@ -22,6 +22,14 @@ export const Service = (baseUrl, Axios, token) => {
 		return instance.post(getApiUrl(controller, action), data);
 	}
 
+	const createProduct = (controller, data) => {
+		return instance.post(getApiv1Url(controller), data);
+	}
+
+	const confirmOrder  =(controller, data) => {
+		return instance.post(getApiv1Url(controller), data);
+	}
+
 	const getCompletedOrders = (controller, action, pageNumber) => {
 		return instance.get(`${getRestUrl(controller, action)}?page=${pageNumber}`);
 	}
@@ -65,6 +73,8 @@ export const Service = (baseUrl, Axios, token) => {
 
 
 	return {
+		confirmOrder,
+		createProduct,
 		getCompletedOrders,
 		getProducts,
 		getActiveOrders,

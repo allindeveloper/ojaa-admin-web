@@ -5,6 +5,7 @@ import clsx from "clsx";
 import { CustomTable } from "app/components/DefaultTable/CustomTable";
 import { dummyRow } from "../dummyRow";
 import PaginationX from "app/components/Pagination/PaginationX";
+import Swal from "sweetalert2";
 
 const styles = (theme) => ({
   root: {
@@ -19,19 +20,19 @@ const styles = (theme) => ({
     backgroundColor: "#09A6E0",
     width: "17rem",
   },
-  OrderNumber:{
-      color:"#1A88B8"
+  OrderNumber: {
+    color: "#1A88B8",
   },
-  Paid:{
-      color:"#CC7203"
-  }
+  Paid: {
+    color: "#CC7203",
+  },
 });
 class CompletedOrders extends Component {
   constructor(props) {
     super(props);
     this.state = {
       orders: [],
-      currentPage:1,
+      currentPage: 1,
       searchData: {},
       submitData: {},
       PageSize: 10,
@@ -41,7 +42,7 @@ class CompletedOrders extends Component {
       isSearching: true,
       showTable: false,
       show: true,
-      };
+    };
   }
 
   componentWillMount() {
@@ -79,36 +80,92 @@ class CompletedOrders extends Component {
   };
 
   onNewPageRequest = () => {
-    console.log("new page request", this.props)
+    console.log("new page request", this.props);
     this.setState({ op: 0.3 });
   };
 
-  formatRows(data){
-    return	data.map((item,index)=>{
-        return{
-                OrderNumber: item.OrderNumber,
-                OrderTime: item.OrderTime,
-                ExpectedDeliveryTime: item.ExpectedDeliveryTime,
-                ItemReviewCount:item.ItemReviewCount,
-                Items:item.Items,
-        }
-      })
-  
+  formatRows(data) {
+    return data.map((item, index) => {
+      return {
+        OrderNumber: item.OrderNumber,
+        OrderTime: item.OrderTime,
+        ExpectedDeliveryTime: item.ExpectedDeliveryTime,
+        ItemReviewCount: item.ItemReviewCount,
+        Items: item.Items,
+      };
+    });
+  }
+
+  confirmItem = (item) =>{
+    console.log("itemm", item)
+    const {CONFIRM_ORDER} = this.props.Constants;
+    const payload ={
+      orderNo : item.orderNo
     }
+    Swal.fire({
+      title: 'Are you sure you want to confirm this order',
+      showCancelButton: true,
+      confirmButtonText: 'Confirm',
+      showLoaderOnConfirm: true,
+      preConfirm: (login) => {
+        return this.props.ServiceBase.confirmOrder(CONFIRM_ORDER,payload)
+        .then((response) => {
+          console.log("response", response.data);
+          
+        })
+        .catch((error) => {
+          // console.log("err confirming order", error.response.data);
+          Swal.showValidationMessage(
+                  `Request failed: ${error.response.data.error}`
+                )
+           })
+        // return fetch(`//api.github.com/users/${login}`)
+        //   .then(response => {
+        //     if (!response.ok) {
+        //       throw new Error(response.statusText)
+        //     }
+        //     return response.json()
+        //   })
+        //   .catch(error => {
+        //     Swal.showValidationMessage(
+        //       `Request failed: ${error}`
+        //     )
+          // })
+      },
+      allowOutsideClick: () => !Swal.isLoading()
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: `Order Confirmed Successfully`,
+        })
+      }
+    })
+  }
   render() {
     let { classes } = this.props;
-    console.log("order in completed", this.state.orders)
+    console.log("order in completed", this.state.orders);
     return (
+      <>
         <>
-            <>
-           <PaginationX currentPage ={this.state.currentPage}service={this.props.ServiceBase.getCompletedOrders} controller={this.props.Constants.ORDERS} action={this.props.Constants.COMPLETED} onNewPageRequest={this.onNewPageRequest} searchData={this.state.searchData} onChangePage={this.onChangePage}  />
+          <PaginationX
+            currentPage={this.state.currentPage}
+            service={this.props.ServiceBase.getCompletedOrders}
+            controller={this.props.Constants.ORDERS}
+            action={this.props.Constants.COMPLETED}
+            onNewPageRequest={this.onNewPageRequest}
+            searchData={this.state.searchData}
+            onChangePage={this.onChangePage}
+          />
           <div style={{ opacity: this.state.op }}>
-            <CustomTable   classes={classes} rows={this.state.pageOfItems} isSearching={this.state.isSearching}/>
+            <CustomTable
+              classes={classes}
+              rows={this.state.pageOfItems}
+              isSearching={this.state.isSearching}
+              confirmItem={this.confirmItem}
+            />
           </div>
-            </>
-          
-          </>
-      
+        </>
+      </>
     );
   }
 }

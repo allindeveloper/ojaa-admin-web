@@ -97,6 +97,7 @@ class SignIn extends Component {
             position: toast.POSITION.TOP_RIGHT,
             autoClose:5000
           });
+          return;
         }
         if(err.response.data){
           this.setState({loading:false})

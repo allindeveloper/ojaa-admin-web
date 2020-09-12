@@ -2,6 +2,8 @@ import React from "react";
 import IconButton from "@material-ui/core/IconButton";
 import Edit from "@material-ui/icons/Edit";
 import Delete from "@material-ui/icons/Delete";
+import {Visibility} from "@material-ui/icons";
+
 export const ProductListColumns = [
   {
     label: "Product name",
@@ -70,6 +72,16 @@ export const ProductListColumns = [
               aria-label="Delete a Product"
             >
               <Delete />
+            </IconButton>
+            <IconButton
+              onClick={() =>
+                window.viewProduct(value, tableMeta, updateValue)
+              }
+              title="View Product"
+              color="secondary"
+              aria-label="View Product"
+            >
+              <Visibility />
             </IconButton>
           </div>
         );

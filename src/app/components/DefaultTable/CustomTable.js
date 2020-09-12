@@ -163,6 +163,7 @@ export const CustomTable = (props)=>{
                     variant="contained"
                     className={clsx(classes.confirmButton)}
                     type="submit"
+                    onClick={props.confirmItem.bind(this,item)}
                   >
                     CONFIRM
                   </Button>
