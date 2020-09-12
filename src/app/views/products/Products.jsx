@@ -17,14 +17,24 @@ import "react-sliding-pane/dist/react-sliding-pane.css";
 import MoreInfo from "app/components/MoreInfo";
 import "./product.css";
 import DeleteIcon from "@material-ui/icons/Delete";
+import Edit from "@material-ui/icons/Edit";
+
 import CreateModal from "app/components/Modal/CreateModal";
-import ProductCreate from "./ProductCreate";
+import EditModal from "app/components/Modal/EditModal"
+import ProductEdit from "./ProductEdit";
+import ProductCreate from "./ProductCreate"
 import LoadingOverlay from "react-loading-overlay";
 import Swal from "sweetalert2";
 import { connect } from "react-redux";
 import { toast } from "react-toastify";
 
 const styles = (theme) => ({
+  formroot :{
+    "& > *": {
+      // margin: theme.spacing(1),
+      // width: "25ch",
+    },
+  },
   root: {
     flexGrow: 1,
   },
@@ -63,6 +73,9 @@ class Products extends React.Component {
       isRightOpen: false,
       productDetails: {},
       productCreateData: {},
+      Description:"",
+      Price:"",
+      rowItems:{}
     };
     window["deleteProduct"] = this.deleteProduct;
     window["editProduct"] = this.editProduct;
@@ -85,7 +98,7 @@ class Products extends React.Component {
     console.log("tableMeta", tableMeta);
     let rowItems = this.state.pageOfItems[tableMeta.rowIndex];
     console.log("rowitems", rowItems);
-    this.setState({ productDetails: rowItems }, () => {
+    this.setState({ productDetails: rowItems, rowItems:rowItems, Price:rowItems.price,Description: rowItems.description }, () => {
       this.setState({ isPaneOpen: true });
     });
   };
@@ -154,9 +167,13 @@ class Products extends React.Component {
 
   editProduct = (value, tableMeta, updateValue) => {
     console.log("tableMeta", tableMeta);
-    this.setState({ isRightOpen: false });
-    // let rowItems = this.state.rolesData[tableMeta.rowIndex];
-    
+    this.setState({editForm:true})
+    let rowItems = this.state.pageOfItems[tableMeta.rowIndex];
+    console.log("currwnt item", rowItems)
+    this.setState({rowItems:rowItems, Price:rowItems.price, Description:rowItems.description},()=>{
+      this.setState({editForm:true})
+
+    })
   };
 
   onCreate = () => {
@@ -181,9 +198,9 @@ formData.append('user', user._id);
       this.setState({creating:false, disableCreate:false,createForm:false})
       console.log("response", response.data);
       if(response.data.status === "ok"){
-        toast.error( "Product Added Successfully", {
+        toast.success( "Product Added Successfully", {
           position: toast.POSITION.TOP_RIGHT,
-          autoClose:5000
+          autoClose:4000
         });
       }
       
@@ -203,6 +220,32 @@ formData.append('user', user._id);
 
   };
 
+  onEdit = () =>{
+    this.setState({editing:true, disableEdit:true})
+    const { PRODUCT} = this.props.Constants;
+    const {user} = this.props;
+    const {Price, Description, rowItems} = this.state;
+    var formData = new FormData();
+    formData.append('price', Price);
+    formData.append('description', Description);
+    formData.append('user', user._id);
+    this.props.ServiceBase.updateProduct(PRODUCT, formData,rowItems._id)
+    .then((response) => {
+      console.log("response", response.data);
+      toast.success( "Product Updated Successfully", {
+        position: toast.POSITION.TOP_RIGHT,
+        autoClose:4000
+      });
+      this.setState({editing:false,editForm:false,disableEdit:false})
+    })
+    .catch((err) => {
+      console.log("err getting top customers", err.response.data);
+    });
+  }
+
+  hideEditForm = () =>{
+    this.setState({editing:false, editForm:false})
+  }
   handleInputChange = (input) => ({ target: { value } }) => {
     this.setState((prevState) => ({
       productCreateData: {
@@ -210,6 +253,12 @@ formData.append('user', user._id);
         [input]: value,
       },
     }));
+  };
+
+  handleEditChange = (input) => ({ target: { value } }) => {
+    this.setState({
+      [input]: value
+    });
   };
   getMuiTheme = () =>
     createMuiTheme({
@@ -272,6 +321,9 @@ formData.append('user', user._id);
       editForm,
       creating,
       disableCreate,
+      Description,
+      Price,
+      rowItems
     } = this.state;
 
     return (
@@ -410,7 +462,9 @@ formData.append('user', user._id);
                 <br />
                 <div style={{ display: "flex" }}>
                   <DeleteIcon htmlColor="#DC7A01" />
-                  <label style={{ color: "#DC7A01" }}>Delete</label>
+                  <label style={{ color: "#DC7A01" }}>Delete</label> &nbsp;
+                  <Edit htmlColor="#DC7A01" />
+                  <label style={{ color: "#DC7A01" }} onClick={()=>this.setState({editForm:true})}>Edit Product</label>
                 </div>
               </Grid>
             </Grid>
@@ -434,6 +488,25 @@ formData.append('user', user._id);
                 classes={classes}
                 files={this.state.files}
                 handleDrop={this.handleDrop}
+              />
+            }
+          />
+        )}
+
+{editForm && (
+          <EditModal
+            title={`Edit Product - ${rowItems.name}`}
+            editForm={editForm}
+            hideEditForm={this.hideEditForm}
+            onEdit={this.onEdit}
+            editing={editing}
+            disableEdit={disableEdit}
+            content={
+              <ProductEdit
+              handleEditChange={this.handleEditChange}
+                Description={Description}
+                Price={Price}
+                classes={classes}
               />
             }
           />

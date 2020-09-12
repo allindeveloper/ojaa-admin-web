@@ -25,6 +25,9 @@ export const Service = (baseUrl, Axios, token) => {
 	const createProduct = (controller, data) => {
 		return instance.post(getApiv1Url(controller), data);
 	}
+	const updateProduct = (controller,data,id) => {
+		return instance.put(`${getApiv1Url(controller)}/${id}`,data);
+	}
 
 	const confirmOrder  =(controller, data) => {
 		return instance.post(getApiv1Url(controller), data);
@@ -73,6 +76,7 @@ export const Service = (baseUrl, Axios, token) => {
 
 
 	return {
+		updateProduct,
 		confirmOrder,
 		createProduct,
 		getCompletedOrders,

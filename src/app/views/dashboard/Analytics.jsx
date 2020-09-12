@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from "react";
 import { Grid, Card } from "@material-ui/core";
-
-import DoughnutChart from "../charts/echarts/Doughnut";
+import {Doughnut} from 'react-chartjs-2';
 
 import ModifiedAreaChart from "./shared/ModifiedAreaChart";
 import StatCards from "./shared/StatCards";
@@ -12,6 +11,7 @@ import UpgradeCard from "./shared/UpgradeCard";
 import Campaigns from "./shared/Campaigns";
 import { withStyles } from "@material-ui/styles";
 import FilterOrders from "./shared/FilterOrders";
+import LoadingOverlay from "react-loading-overlay";
 
 class Dashboard1 extends Component {
   constructor(props) {
@@ -23,6 +23,7 @@ class Dashboard1 extends Component {
       activeOrders: 0,
       completedOrders: 0,
       loadingCounts:true,
+      loadingDoughnut:true,
       pieChartData: []
     };
   }
@@ -46,7 +47,9 @@ class Dashboard1 extends Component {
           console.log("response counts", response.data);
           const {newOrders,activeOrders, completedOrders} = response.data
           this.setState({newOrders,activeOrders,completedOrders, loadingCounts:false},()=>{
-            this.setState({pieChartData:this.formatPieChartData(completedOrders,activeOrders,newOrders)})
+            this.setState({pieChartData:this.formatPieChartData(completedOrders,activeOrders,newOrders)},()=>{
+              this.setState({loadingDoughnut:false})
+            })
           })
         }
       })
@@ -57,22 +60,32 @@ class Dashboard1 extends Component {
   }
 
   formatPieChartData = (completedOrders, activeOrders, newOrders) => {
-    return  [
-      {
-        value: completedOrders,
-        name: "Completed Orders"
-      },
-      {
-        value: activeOrders,
-        name: "Active Orders"
-      },
-      { value: newOrders, name: "New Orders" }
-    ]
+    return  {
+      labels: [
+        'Completed Orders',
+        'Active Orders',
+        'New Orders'
+      ],
+      datasets: [{
+        data: [completedOrders, activeOrders, newOrders],
+        backgroundColor: [
+        '#ff6f00',
+        '#ffeb3b',
+        '#388e3c'
+        ],
+        hoverBackgroundColor: [
+          '#ff6f00',
+          '#ffeb3b',
+          '#388e3c'
+        ]
+      }]
+    }
   }
 
   render() {
     let { theme } = this.props;
-    const {topCustomers,loadingtopCustomers, newOrders, completedOrders, activeOrders, loadingCounts,pieChartData} = this.state;
+    const {topCustomers,loadingtopCustomers, newOrders, completedOrders,
+       activeOrders, loadingCounts,loadingDoughnut,pieChartData} = this.state;
     console.log("pie chart data", this.state.pieChartData);
     return (
       <Fragment>
@@ -120,13 +133,21 @@ class Dashboard1 extends Component {
 
             <Grid item lg={4} md={4} sm={12} xs={12}>
               <Card className="px-24 py-16 mb-16">
+              <LoadingOverlay
+          active={loadingCounts}
+          styles={{
+            overlay: (base) => ({
+              ...base,
+              background: "#e0e0e0",
+            }),
+          }}
+          spinner
+          text="Loading Chart..."
+        >
                 <div className="card-title">All Orders</div>
                 <div className="card-subtitle">All Time</div>
-                <DoughnutChart
-                  height="300px"
-                  pieChartData={pieChartData}
-                  color={["#ff6f00", "#ffeb3b", "#388e3c"]}
-                />
+                <Doughnut data={pieChartData} />
+                </LoadingOverlay>
               </Card>
 
               {/* <UpgradeCard/> */}
