@@ -1,0 +1,2 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[14],{1564:function(e,a,t){"use strict";t.r(a);var n=t(0),s=t.n(n),m=t(63);t(1384);a.default=(()=>s.a.createElement("div",{className:"m-sm-30"},s.a.createElement("div",{className:"mb-sm-30"},s.a.createElement(m.a,{routeSegments:[{name:"Home",path:"/app/dashboard"},{name:"Settings"}]})),s.a.createElement(m.h,{title:"Settings"},s.a.createElement("div",{className:"py-8"}))))}}]);
+//# sourceMappingURL=14.6c90e5ab.chunk.js.map
