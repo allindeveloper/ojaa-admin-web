@@ -31,61 +31,61 @@ export const ProductListColumns = [
       sort: true,
     },
   },
-  {
-    label: "Actions",
-    name: "Actions",
-    options: {
-      filter: false,
-      sort: false,
-      empty: true,
-      setCellHeaderProps: () => ({
-        style: {
-          display: "flex",
-          justifyContent: "center",
-          flexDirection: "row-reverse",
-        },
-      }),
-      setCellProps: () => ({
-        style: {
-          display: "flex",
-          justifyContent: "center",
-          flexDirection: "row-reverse",
-        },
-      }),
-      customBodyRender: (value, tableMeta, updateValue) => {
-        return (
-          <div style={{ display: "flex" }}>
-            <IconButton
-              onClick={() => window.editProduct(value, tableMeta, updateValue)}
-              title="Edit a Product"
-              color="secondary"
-              aria-label="Edit a Product"
-            >
-              <Edit />
-            </IconButton>
-            <IconButton
-              onClick={() =>
-                window.deleteProduct(value, tableMeta, updateValue)
-              }
-              title="Delete a Product"
-              color="secondary"
-              aria-label="Delete a Product"
-            >
-              <Delete />
-            </IconButton>
-            <IconButton
-              onClick={() =>
-                window.viewProduct(value, tableMeta, updateValue)
-              }
-              title="View Product"
-              color="secondary"
-              aria-label="View Product"
-            >
-              <Visibility />
-            </IconButton>
-          </div>
-        );
-      },
-    },
-  },
+  // {
+  //   label: "Actions",
+  //   name: "Actions",
+  //   options: {
+  //     filter: false,
+  //     sort: false,
+  //     empty: true,
+  //     setCellHeaderProps: () => ({
+  //       style: {
+  //         display: "flex",
+  //         justifyContent: "center",
+  //         flexDirection: "row-reverse",
+  //       },
+  //     }),
+  //     setCellProps: () => ({
+  //       style: {
+  //         display: "flex",
+  //         justifyContent: "center",
+  //         flexDirection: "row-reverse",
+  //       },
+  //     }),
+  //     customBodyRender: (value, tableMeta, updateValue) => {
+  //       return (
+  //         <div style={{ display: "flex" }}>
+  //           <IconButton
+  //             onClick={() => window.editProduct(value, tableMeta, updateValue)}
+  //             title="Edit a Product"
+  //             color="secondary"
+  //             aria-label="Edit a Product"
+  //           >
+  //             <Edit />
+  //           </IconButton>
+  //           <IconButton
+  //             onClick={() =>
+  //               window.deleteProduct(value, tableMeta, updateValue)
+  //             }
+  //             title="Delete a Product"
+  //             color="secondary"
+  //             aria-label="Delete a Product"
+  //           >
+  //             <Delete />
+  //           </IconButton>
+  //           <IconButton
+  //             onClick={() =>
+  //               window.viewProduct(value, tableMeta, updateValue)
+  //             }
+  //             title="View Product"
+  //             color="secondary"
+  //             aria-label="View Product"
+  //           >
+  //             <Visibility />
+  //           </IconButton>
+  //         </div>
+  //       );
+  //     },
+  //   },
+  // },
 ];

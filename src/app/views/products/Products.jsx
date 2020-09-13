@@ -102,7 +102,15 @@ class Products extends React.Component {
       this.setState({ isPaneOpen: true });
     });
   };
-
+  onRowClick = (value, tableMeta, updateValue) => {
+    console.log("value", value);
+    console.log("tableMeta", tableMeta);
+    let rowItems = this.state.pageOfItems[tableMeta.rowIndex];
+    console.log("rowitems", rowItems);
+    this.setState({ productDetails: rowItems, rowItems:rowItems, Price:rowItems.price,Description: rowItems.description }, () => {
+      this.setState({ isPaneOpen: true });
+    });
+  };
   deleteProduct = (value, tableMeta, updateValue) => {
     console.log("adding");
     console.log("value", value);
@@ -374,7 +382,7 @@ formData.append('user', user._id);
                         pagination: false,
                         draggableColumns: { enabled: true },
                         elevation: 2,
-                        // onRowClick: this.onRowClick,
+                        onRowClick: this.onRowClick,
                         rowHover: true,
                         print: false,
                         filter: false,
