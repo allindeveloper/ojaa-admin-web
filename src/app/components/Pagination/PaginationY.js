@@ -189,7 +189,7 @@ class PaginationY extends React.Component {
         }
  
         return (
-            <ul className="pagination  pull-right m-b-0" >
+            <ul className="pagination  pull-right m-b-0" style={{cursor:"pointer"}}>
                 <li className={pager.currentPage === 1 ? 'page-item disabled hidden-xs' : 'page-item hidden-xs'}>
                     <a onClick={() => this.setPage(1)} className="page-link">First</a>
                 </li>

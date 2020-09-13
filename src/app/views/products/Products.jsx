@@ -369,6 +369,7 @@ formData.append('user', user._id);
                   spinner
                   text="Loading Products..."
                 >
+                  <div style={{ opacity: this.state.op }}>
                   <MuiThemeProvider theme={this.getMuiTheme()}>
                     <MUIDataTable
                       title={"Products List"}
@@ -389,6 +390,7 @@ formData.append('user', user._id);
                       }}
                     />
                   </MuiThemeProvider>
+                  </div>
                 </LoadingOverlay>
                 <br></br>
                 {/* {this.state.isSearching && ( */}

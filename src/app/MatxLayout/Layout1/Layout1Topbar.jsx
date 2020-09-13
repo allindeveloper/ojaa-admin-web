@@ -92,14 +92,14 @@ class Layout1Topbar extends Component {
                   <IconButton>
                     <Icon>mail_outline</Icon>
                   </IconButton>
-
-                  <IconButton>
+                  <MatxSearchBox />
+                  {/* <IconButton>
                     <Icon>web_asset</Icon>
                   </IconButton>
 
                   <IconButton>
                     <Icon>star_outline</Icon>
-                  </IconButton>
+                  </IconButton> */}
                 </div>
               </div>
               <div className="flex flex-middle">
@@ -107,9 +107,9 @@ class Layout1Topbar extends Component {
                   {" "}
                   Welcome {user.lastName}
                 </label>
-                <MatxSearchBox />
+                
 
-                {/* <NotificationBar /> */}
+                <NotificationBar />
 
                 {/* <ShoppingCart></ShoppingCart> */}
 

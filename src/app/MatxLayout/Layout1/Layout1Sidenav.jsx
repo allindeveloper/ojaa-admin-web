@@ -90,12 +90,12 @@ class Layout1Sidenav extends Component {
   renderLogoSwitch = () => (
     // Open Brand component file to replace logo and text
     <Brand>
-      <Switch
+      {/* <Switch
         className="sidenav__toggle show-on-lg"
         onChange={this.handleSidenavToggle}
         checked={!this.state.sidenavToggleChecked}
         color="secondary"
-      />
+      /> */}
     </Brand>
   );
 
