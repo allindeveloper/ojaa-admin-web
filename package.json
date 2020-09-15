@@ -3,7 +3,7 @@
   "author": "Ojaa-Dev",
   "license": "MIT",
   "version": "1.0.0",
-  "homepage": "http://ojaa-admin-web.github.io/myapp",
+  "homepage": "https://ojaa-admin-web.herokuapp.com/",
   "private": true,
   "dependencies": {
     "@date-io/date-fns": "^1.3.6",
