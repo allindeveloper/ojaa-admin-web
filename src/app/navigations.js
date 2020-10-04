@@ -9,11 +9,11 @@ export const navigations = [
     path: "/home/orders",
     icon: "shopping_cart"
   },
-  {
-    name: "Complaints",
-    icon: "info",
-    path: "/home/complaints"
-  },
+  // {
+  //   name: "Complaints",
+  //   icon: "info",
+  //   path: "/home/complaints"
+  // },
   {
     name: "Products",
     icon: "loyalty",

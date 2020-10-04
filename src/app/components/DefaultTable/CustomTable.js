@@ -158,7 +158,7 @@ export const CustomTable = (props)=>{
                   <Grid item xs={12} sm={6}></Grid>
                 </Grid>
                 <br />
-                <Grid container justify="center">
+                {/* <Grid container justify="center">
                   <Button
                     variant="contained"
                     className={clsx(classes.confirmButton)}
@@ -167,7 +167,7 @@ export const CustomTable = (props)=>{
                   >
                     CONFIRM
                   </Button>
-                </Grid>
+                </Grid> */}
               </Grid>
             </Grid>
             </Paper>
