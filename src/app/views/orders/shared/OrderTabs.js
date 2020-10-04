@@ -77,9 +77,9 @@ export default function OrderTabs(props) {
           textColor="primary"
           aria-label="Orders categories"
         >
-          <Tab label="New Orders" icon={<AddShoppingCart />} {...a11yProps(0)} />
-          <Tab label="Active Orders" icon={<ShoppingBasket />} {...a11yProps(1)} />
-          <Tab label="Completed Orders" icon={<ShoppingCartOutlined />} {...a11yProps(2)} />
+          <Tab label="New" icon={<AddShoppingCart />} {...a11yProps(0)} />
+          <Tab label="Active" icon={<ShoppingBasket />} {...a11yProps(1)} />
+          <Tab label="Completed" icon={<ShoppingCartOutlined />} {...a11yProps(2)} />
          </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>

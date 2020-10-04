@@ -28,7 +28,7 @@ const routes = [
   ...dashboardRoutes,
   ...ordersRoutes,
   ...settingsRoutes,
-  ...complaintsRoutes,
+  // ...complaintsRoutes,
   ...productsRoutes,
   // ...redirectRoute,
   ...errorRoute

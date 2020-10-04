@@ -102,58 +102,60 @@ class Layout1Sidenav extends Component {
   renderUser = () => {
     let { user } = this.props;
     return (
-      <div className="sidenav__user">
-        <div className="username-photo">
-          {/* <img src={user.photoURL} alt="user" /> */}
-          <AccountCircleIcon style={{ fontSize: 30 }}/>
-        </div>
-        <div className="ml-8">
-          <span className="username">
-            {/* <Icon>lock</Icon> */}
-            {user.displayName}
-          </span>
-          <div className="user__menu">
-            <MatxMenu
-              menuButton={
-                <Tooltip title="Settings">
-                  <IconButtonWhite
-                    aria-label="Delete"
-                    className=""
-                    size="small"
-                  >
-                    <IconSmall> settings </IconSmall>
-                  </IconButtonWhite>
-                </Tooltip>
-              }
-            >
-              <MenuItem className="flex flex-middle" style={{ minWidth: 185 }}>
-                <Icon> home </Icon>
-                <span className="pl-16"> Home </span>
-              </MenuItem>
-              <MenuItem className="flex flex-middle" style={{ minWidth: 185 }}>
-                <Icon> settings </Icon>
-                <span className="pl-16"> Account Setting </span>
-              </MenuItem>
-            </MatxMenu>
+      <>
+      </>
+      // <div className="sidenav__user">
+      //   <div className="username-photo">
+      //     {/* <img src={user.photoURL} alt="user" /> */}
+      //     <AccountCircleIcon style={{ fontSize: 30 }}/>
+      //   </div>
+      //   <div className="ml-8">
+      //     <span className="username">
+      //       {/* <Icon>lock</Icon> */}
+      //       {user.displayName}
+      //     </span>
+      //     <div className="user__menu">
+      //       <MatxMenu
+      //         menuButton={
+      //           <Tooltip title="Settings">
+      //             <IconButtonWhite
+      //               aria-label="Delete"
+      //               className=""
+      //               size="small"
+      //             >
+      //               <IconSmall> settings </IconSmall>
+      //             </IconButtonWhite>
+      //           </Tooltip>
+      //         }
+      //       >
+      //         <MenuItem className="flex flex-middle" style={{ minWidth: 185 }}>
+      //           <Icon> home </Icon>
+      //           <span className="pl-16"> Home </span>
+      //         </MenuItem>
+      //         <MenuItem className="flex flex-middle" style={{ minWidth: 185 }}>
+      //           <Icon> settings </Icon>
+      //           <span className="pl-16"> Account Setting </span>
+      //         </MenuItem>
+      //       </MatxMenu>
 
-            <Tooltip title="Profile">
-              <IconButtonWhite aria-label="Delete" className="" size="small">
-                <IconSmall>person</IconSmall>
-              </IconButtonWhite>
-            </Tooltip>
-            <Tooltip title="Sign out">
-              <IconButtonWhite
-                aria-label="Delete"
-                className=""
-                size="small"
-                onClick={this.handleSignOut}
-              >
-                <IconSmall>exit_to_app</IconSmall>
-              </IconButtonWhite>
-            </Tooltip>
-          </div>
-        </div>
-      </div>
+      //       <Tooltip title="Profile">
+      //         <IconButtonWhite aria-label="Delete" className="" size="small">
+      //           <IconSmall>person</IconSmall>
+      //         </IconButtonWhite>
+      //       </Tooltip>
+      //       <Tooltip title="Sign out">
+      //         <IconButtonWhite
+      //           aria-label="Delete"
+      //           className=""
+      //           size="small"
+      //           onClick={this.handleSignOut}
+      //         >
+      //           <IconSmall>exit_to_app</IconSmall>
+      //         </IconButtonWhite>
+      //       </Tooltip>
+      //     </div>
+      //   </div>
+      // </div>
     );
   };
 
