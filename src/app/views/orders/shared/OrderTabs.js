@@ -12,6 +12,7 @@ import Box from '@material-ui/core/Box';
 import NewOrders from './NewOrders';
 import { Container } from '@material-ui/core';
 import CompletedOrders from './CompletedOrders';
+import ActiveOrders from './ActiveOrders';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -86,7 +87,7 @@ export default function OrderTabs(props) {
         <NewOrders {...props}/>
       </TabPanel>
       <TabPanel value={value} index={1}>
-        Active Orders
+        <ActiveOrders {...props}/>
       </TabPanel>
       <TabPanel value={value} index={2}>
         <CompletedOrders {...props} />

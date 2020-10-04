@@ -54,6 +54,10 @@ const SidenavTheme = ({ theme, settings }) => {
         .navigation .nav-item.active, 
         .navigation .nav-item.active:hover {
           background: ${theme.palette.secondary.main};
+          text-decoration:none;
+        }
+        .navigation .nav-item:hover {
+          text-decoration:none;
         }
 
         

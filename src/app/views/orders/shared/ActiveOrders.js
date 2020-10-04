@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Button, Grid, Paper, makeStyles, withStyles } from "@material-ui/core";
 import { SimpleCard } from "matx";
 import clsx from "clsx";
-import { CustomNewOrderTable } from "app/components/DefaultTable/CustomNewOrderTable";
+import { CustomActiveOrderTable } from "app/components/DefaultTable/CustomActiveOrderTable";
 import { dummyRow } from "../dummyRow";
 import PaginationX from "app/components/Pagination/PaginationX";
 import Swal from "sweetalert2";
@@ -28,7 +28,7 @@ const styles = (theme) => ({
       color:"#CC7203"
   }
 });
-class NewOrders extends Component {
+class ActiveOrders extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -120,23 +120,10 @@ class NewOrders extends Component {
             
           })
           .catch((error) => {
-            // console.log("err confirming order", error.response.data);
             Swal.showValidationMessage(
                     `Request failed: ${error.response.data.error}`
                   )
              })
-          // return fetch(`//api.github.com/users/${login}`)
-          //   .then(response => {
-          //     if (!response.ok) {
-          //       throw new Error(response.statusText)
-          //     }
-          //     return response.json()
-          //   })
-          //   .catch(error => {
-          //     Swal.showValidationMessage(
-          //       `Request failed: ${error}`
-          //     )
-            // })
         },
         allowOutsideClick: () => !Swal.isLoading()
       }).then((result) => {
@@ -153,9 +140,9 @@ class NewOrders extends Component {
     return (
         <>
             <>
-           <PaginationX currentPage ={this.state.currentPage}service={this.props.ServiceBase.getActiveOrders} controller={this.props.Constants.ORDERS} action={this.props.Constants.NEW} onNewPageRequest={this.onNewPageRequest} searchData={this.state.searchData} onChangePage={this.onChangePage}  />
+           <PaginationX currentPage ={this.state.currentPage}service={this.props.ServiceBase.getActiveOrders} controller={this.props.Constants.ORDERS} action={this.props.Constants.DELIVERING} onNewPageRequest={this.onNewPageRequest} searchData={this.state.searchData} onChangePage={this.onChangePage}  />
           <div style={{ opacity: this.state.op }}>
-            <CustomNewOrderTable   classes={classes} rows={this.state.pageOfItems} isSearching={this.state.isSearching}
+            <CustomActiveOrderTable   classes={classes} rows={this.state.pageOfItems} isSearching={this.state.isSearching}
             confirmItem={this.confirmItem}
             />
           </div>
@@ -172,6 +159,6 @@ const mapStateToProps = (state) => ({
   user: state.user,
 });
 export default withStyles(styles, { withTheme: true })(
-  connect(mapStateToProps)(NewOrders)
+  connect(mapStateToProps)(ActiveOrders)
 );
 // withRouter(connect(mapStateToProps, { loginWithEmailAndPassword })(SignIn))
