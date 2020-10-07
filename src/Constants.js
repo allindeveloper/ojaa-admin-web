@@ -22,6 +22,7 @@ export const PRODUCTS = "products";
 export const UPDATE_ROLE = "updateRole";
 export const DELETE = "delete";
 export const GET_USER_BY_EMAIL = "GetUserByEmail";
+export const DASHBOARD = "dashboard";
 const DEMO = {
     BLANK_LINK: "#!",
 };

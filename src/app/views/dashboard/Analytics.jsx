@@ -14,6 +14,7 @@ import Campaigns from "./shared/Campaigns";
 import { withStyles } from "@material-ui/styles";
 import FilterOrders from "./shared/FilterOrders";
 import LoadingOverlay from "react-loading-overlay";
+import { DASHBOARD } from "Constants";
 
 class Dashboard1 extends Component {
   constructor(props) {
@@ -27,6 +28,10 @@ class Dashboard1 extends Component {
       loadingCounts: true,
       loadingDoughnut: true,
       pieChartData: [],
+      usersCount:0,
+      unitsSold:0,
+      totalEarnings:0,
+      loadingNewCounts:0,
       dashboardFilter: {
         transactionHistory: 0,
       },
@@ -35,7 +40,7 @@ class Dashboard1 extends Component {
 
   componentDidMount() {
     console.log("props", this.props);
-    const { STATS, TOP_CUSTOMERS, ORDERS, COUNT } = this.props.Constants;
+    const { STATS, TOP_CUSTOMERS, ORDERS, COUNT, DASHBOARD } = this.props.Constants;
     this.props.ServiceBase.getTopCustomers(STATS, TOP_CUSTOMERS)
       .then((response) => {
         console.log("response", response.data);
@@ -49,6 +54,23 @@ class Dashboard1 extends Component {
       .catch((err) => {
         console.log("err getting top customers", err);
       });
+
+      this.props.ServiceBase.getDashboardStats(STATS, DASHBOARD)
+      .then((response) => {
+        console.log("response", response.data);
+        if (response.data.status === "ok") {
+          this.setState({
+            usersCount: response.data.data.usersCount,
+            unitsSold: response.data.data.unitsSold,
+            totalEarnings:response.data.data.totalEarnings,
+            loadingNewCounts: false,
+          });
+        }
+      })
+      .catch((err) => {
+        console.log("err getting top customers", err);
+      });
+
     this.props.ServiceBase.getItems(ORDERS, COUNT)
       .then((response) => {
         if (response.status === 200) {
@@ -108,7 +130,9 @@ class Dashboard1 extends Component {
   render() {
     let { theme } = this.props;
     const {
-      transactionHistory,
+      totalEarnings,
+      usersCount,
+      unitsSold,
       topCustomers,
       loadingtopCustomers,
       newOrders,
@@ -118,7 +142,7 @@ class Dashboard1 extends Component {
       loadingDoughnut,
       pieChartData,
     } = this.state;
-    console.log("pie chart data", this.state.pieChartData);
+    console.log("pie chart data", this.state);
     return (
       <Fragment>
         <div className="pb-86 pt-30 px-30 bg-primary">
@@ -196,7 +220,7 @@ class Dashboard1 extends Component {
             </Grid>
             <Grid item lg={4} md={4} sm={12} xs={12}>
               
-              <StatCards2/>
+              <StatCards2 usersCount={usersCount} unitsSold={unitsSold} totalEarnings={totalEarnings}/>
             </Grid>
           </Grid>
         </div>

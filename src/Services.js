@@ -65,6 +65,7 @@ export const Service = (baseUrl, Axios, token) => {
 	const editItem = (controller,data,id) => {
 		return instance.put(`${getApiv1Url(controller)}/${id}`,data);
 	}
+	
 
 	const deleteProduct = (controller,action,data,id) => {
 		return instance.delete(`${getApiUrl(controller,action)}${id}`,{data});
@@ -82,6 +83,10 @@ export const Service = (baseUrl, Axios, token) => {
 		return instance.get(`${getApiv1Url(controller)}/${id}`);
 	}
 
+	const getDashboardStats = (controller,action) => {
+		return instance.get(`${getApiUrl(controller,action)}`);
+	}
+
 
 	const createItemV1 = (data, controller) => {
 		return instance.post(getApiv1Url(controller), data);
@@ -93,6 +98,7 @@ export const Service = (baseUrl, Axios, token) => {
 	return {
 		deleteProduct,
 		updateProduct,
+		getDashboardStats,
 		getUsers,
 		updateOrder,
 		confirmOrder,

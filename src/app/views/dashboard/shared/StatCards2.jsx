@@ -4,9 +4,11 @@ import {
   Card,
   Icon,
   Fab,
+  Tooltip
 } from "@material-ui/core";
+import { appHelpers } from "appHelper";
 
-const StatCards2 = () => {
+const StatCards2 = (props) => {
   return (
     <Grid container spacing={3} className="mb-24">
       <Grid item xs={12} md={12}>
@@ -23,7 +25,7 @@ const StatCards2 = () => {
             </h5>
           </div>
           <div className="pt-16 flex flex-middle">
-            <h2 className="m-0 text-muted flex-grow-1">2453</h2>
+          <Tooltip title={props.unitsSold} aria-label="units sold"><h2 className="m-0 text-muted flex-grow-1">{appHelpers.abbreviateThousands(props.unitsSold)}</h2></Tooltip>
             <div className="ml-12 small-circle bg-green text-white">
               <Icon className="small-icon">expand_less</Icon>
             </div>
@@ -45,7 +47,7 @@ const StatCards2 = () => {
                     </h5>
                   </div>
                   <div className="pt-16 flex flex-middle">
-                    <h2 className="m-0 text-muted flex-grow-1">$39K</h2>
+                    <h2 className="m-0 text-muted flex-grow-1">₦{appHelpers.abbreviateThousands(props.totalEarnings)}</h2>
                     <div className="ml-12 small-circle bg-error text-white">
                       <Icon className="small-icon">expand_less</Icon>
                     </div>
@@ -67,7 +69,7 @@ const StatCards2 = () => {
             </h5>
           </div>
           <div className="pt-16 flex flex-middle">
-            <h2 className="m-0 text-muted flex-grow-1">10.8k</h2>
+            <h2 className="m-0 text-muted flex-grow-1">{appHelpers.abbreviateThousands(props.usersCount)}</h2>
             <div className="ml-12 small-circle bg-green text-white">
               <Icon className="small-icon">expand_less</Icon>
             </div>
