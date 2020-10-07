@@ -9,8 +9,8 @@ import {
   createMuiTheme,
   Button,
 } from "@material-ui/core";
-import { ProductListColumns } from "columnDatasets";
-import PaginationY from "app/components/Pagination/PaginationY";
+import { StaffsListColumns } from "columnDatasets";
+import PaginationStaff from "app/components/Pagination/PaginationStaff";
 import MUIDataTable from "mui-datatables";
 import SlidingPane from "react-sliding-pane";
 import "react-sliding-pane/dist/react-sliding-pane.css";
@@ -20,9 +20,8 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import Edit from "@material-ui/icons/Edit";
 
 import CreateModal from "app/components/Modal/CreateModal";
-import EditModal from "app/components/Modal/EditModal"
-import ProductEdit from "./ProductEdit";
-import ProductCreate from "./ProductCreate"
+// import EditModal from "app/components/Modal/EditModal"
+import UserCreate from "./UserCreate"
 import LoadingOverlay from "react-loading-overlay";
 import Swal from "sweetalert2";
 import { connect } from "react-redux";
@@ -72,7 +71,7 @@ class Users extends React.Component {
       isPaneOpenLeft: false,
       isRightOpen: false,
       productDetails: {},
-      productCreateData: {},
+      userCreateData: {},
       Description:"",
       Price:"",
       rowItems:{}
@@ -186,45 +185,37 @@ class Users extends React.Component {
 
   onCreate = () => {
     this.setState({creating:true, disableCreate:true})
-    const {productCreateData, files} = this.state;
+    const {userCreateData} = this.state;
     const  {user} = this.props;
-    const {PRODUCT} = this.props.Constants;
-    var formData = new FormData();
-formData.append('name', productCreateData.Title);
-formData.append('description', productCreateData.Description);
-formData.append('category', productCreateData.Category);
-formData.append('image', files[0]);
-formData.append('price', productCreateData.Price);
-formData.append('measure', productCreateData.Measurement);
-formData.append('user', user._id);
-    // for (const [key, value] of formData) {
-    //   console.log('»', key, value)
-    // }
-
-    this.props.ServiceBase.createProduct(PRODUCT,formData)
-    .then((response) => {
-      this.setState({creating:false, disableCreate:false,createForm:false})
-      console.log("response", response.data);
-      if(response.data.status === "ok"){
-        toast.success( "Product Added Successfully", {
-          position: toast.POSITION.TOP_RIGHT,
-          autoClose:4000
-        });
-      }
-      
+    const {PRODUCT,USER,UPDATE_ROLE} = this.props.Constants;
+    console.log("curent user", user)
+    console.log("tstate", userCreateData)
+    const payload ={
+    email : userCreateData.Email,
+	user : user._id,
+	role : userCreateData.Role
+    }
+    this.props.ServiceBase.updateRole(payload,USER,UPDATE_ROLE)
+    .then((res)=>{
+      this.setState({creating:false,disableCreate:false})
+      console.log("response", res.data)
     })
-    .catch((err) => {
-      this.setState({creating:false, disableCreate:false})
-      console.log("err getting top customers", err.response.data);
-
-      if(err.response.data){
-        toast.error( err.response.data.error, {
-          position: toast.POSITION.TOP_RIGHT,
-          autoClose:5000
-        });
-      }
-
-    });
+    .catch((error)=>{
+      this.setState({creating:false,disableCreate:false})
+      if(error.response){
+      toast.error( error.response.data.error, {
+        position: toast.POSITION.TOP_RIGHT,
+        autoClose:5000
+      });
+      console.log("error",error.response.data)
+    }else{
+      toast.error( "Please Try Again", {
+        position: toast.POSITION.TOP_RIGHT,
+        autoClose:5000
+      });
+    }
+    })
+   
 
   };
 
@@ -256,8 +247,8 @@ formData.append('user', user._id);
   }
   handleInputChange = (input) => ({ target: { value } }) => {
     this.setState((prevState) => ({
-      productCreateData: {
-        ...prevState.productCreateData,
+      userCreateData: {
+        ...prevState.userCreateData,
         [input]: value,
       },
     }));
@@ -320,7 +311,7 @@ formData.append('user', user._id);
 
   render() {
     let { classes } = this.props;
-    const { productDetails, productCreateData } = this.state;
+    const { productDetails, userCreateData } = this.state;
     const {
       editing,
       disableEdit,
@@ -351,7 +342,7 @@ formData.append('user', user._id);
               onClick={this.showCreateForm}
               color="primary"
             >
-              Add Product
+              Upgrade User
             </Button>
           }
         >
@@ -367,15 +358,16 @@ formData.append('user', user._id);
                     }),
                   }}
                   spinner
-                  text="Loading Products..."
+                  text="Loading Staff Lists..."
                 >
                   <div style={{ opacity: this.state.op }}>
                   <MuiThemeProvider theme={this.getMuiTheme()}>
                     <MUIDataTable
-                      title={"Products List"}
+                      title={"Manage Users"}
                       data={this.state.pageOfItems}
-                      columns={ProductListColumns}
+                      columns={StaffsListColumns}
                       options={{
+                        enableNestedDataAccess: ".",
                         search: false,
                         download: false,
                         responsive: "standard",
@@ -394,10 +386,10 @@ formData.append('user', user._id);
                 </LoadingOverlay>
                 <br></br>
                 {/* {this.state.isSearching && ( */}
-                  <PaginationY
+                  <PaginationStaff
                     currentPage={this.state.currentPage}
-                    service={this.props.ServiceBase.getProducts}
-                    controller={this.props.Constants.PRODUCTS}
+                    service={this.props.ServiceBase.getUsers}
+                    controller={`${this.props.Constants.USERS}/${this.props.Constants.STAFFS}`}
                     onNewPageRequest={this.onNewPageRequest}
                     searchData={this.state.searchData}
                     onChangePage={this.onChangePage}
@@ -406,117 +398,24 @@ formData.append('user', user._id);
               </Grid>
             </Grid>
           </div>
-          <SlidingPane
-            className=""
-            overlayClassName="productSidePane"
-            isOpen={this.state.isPaneOpen}
-            title="Product Details"
-            subtitle="Optional subtitle."
-            width={"300px"}
-            onRequestClose={() => {
-              // triggered on "<" on left top click or on outside click
-              this.setState({ isPaneOpen: false });
-            }}
-          >
-            <Grid container>
-              <Grid item xs={12}>
-                <div style={{ display: "flex", justifyContent: "center" }}>
-                  <img src={productDetails.image} />
-                </div>
-                <br />
-              </Grid>
-              <Grid item xs={12}>
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    borderStyle: "solid",
-                    borderColor: "grey",
-                    borderWidth: ".09rem",
-                    padding: "0.5rem",
-                  }}
-                >
-                  <div>Category</div>
-                  <div>{productDetails.category}</div>
-                </div>
-                <br />
-                <br />
-              </Grid>
-
-              <Grid item xs={12}>
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    borderStyle: "solid",
-                    borderColor: "grey",
-                    borderWidth: ".09rem",
-                    padding: "0.5rem",
-                  }}
-                >
-                  <div>Price</div>
-                  <div>{productDetails.price}</div>
-                </div>
-              </Grid>
-              <Grid item xs={12}>
-                <br />
-                <br />
-                <h5>Description</h5>
-                <hr />
-                <div>{productDetails.description}</div>
-              </Grid>
-              <Grid item xs={12}>
-                <br />
-                <br />
-                <br />
-                <br />
-                <div style={{ display: "flex" }}>
-                  <DeleteIcon htmlColor="#DC7A01" />
-                  <label style={{ color: "#DC7A01" }}>Delete</label> &nbsp;
-                  <Edit htmlColor="#DC7A01" />
-                  <label style={{ color: "#DC7A01" }} onClick={()=>this.setState({editForm:true})}>Edit Product</label>
-                </div>
-              </Grid>
-            </Grid>
-
-            <br />
-          </SlidingPane>
+          
         </SimpleCard>
 
         {createForm && (
           <CreateModal
-            title="Create Product"
+            title="Upgrade User Status"
             createForm={createForm}
             hideCreateForm={this.hideCreateForm}
             onCreate={this.onCreate}
             creating={creating}
             disableCreate={disableCreate}
             content={
-              <ProductCreate
-                productCreateData={productCreateData}
+              <UserCreate
+                userCreateData={userCreateData}
                 handleInputChange={this.handleInputChange}
                 classes={classes}
                 files={this.state.files}
                 handleDrop={this.handleDrop}
-              />
-            }
-          />
-        )}
-
-{editForm && (
-          <EditModal
-            title={`Edit Product - ${rowItems.name}`}
-            editForm={editForm}
-            hideEditForm={this.hideEditForm}
-            onEdit={this.onEdit}
-            editing={editing}
-            disableEdit={disableEdit}
-            content={
-              <ProductEdit
-              handleEditChange={this.handleEditChange}
-                Description={Description}
-                Price={Price}
-                classes={classes}
               />
             }
           />

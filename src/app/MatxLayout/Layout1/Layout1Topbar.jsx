@@ -108,8 +108,8 @@ class Layout1Topbar extends Component {
                   Welcome {user.lastName}
                 </label>
                 
-
-                <NotificationBar />
+                  &nbsp;
+                {/* <NotificationBar /> */}
 
                 {/* <ShoppingCart></ShoppingCart> */}
 
@@ -129,7 +129,7 @@ class Layout1Topbar extends Component {
                     />
                   }
                 >
-                  <MenuItem style={{ minWidth: 185 }}>
+                  {/* <MenuItem style={{ minWidth: 185 }}>
                     <Link className="flex flex-middle" to="/">
                       <Icon> home </Icon>
                       <span className="pl-16"> Home </span>
@@ -150,7 +150,7 @@ class Layout1Topbar extends Component {
                   >
                     <Icon> settings </Icon>
                     <span className="pl-16"> Settings </span>
-                  </MenuItem>
+                  </MenuItem> */}
                   <MenuItem
                     onClick={this.handleSignOut}
                     className="flex flex-middle"

@@ -8,6 +8,7 @@ import settingsRoutes from "./views/settings/settingsRoutes";
 import complaintsRoutes from "./views/complaints/complaintsRoutes";
 import ordersRoutes from "./views/orders/ordersRoutes";
 import productsRoutes from "./views/products/productsRoutes";
+import usersRoutes from "./views/users/usersRoutes";
 
 const redirectRoute = [
   {
@@ -28,6 +29,7 @@ const routes = [
   ...dashboardRoutes,
   ...ordersRoutes,
   ...settingsRoutes,
+  ...usersRoutes,
   // ...complaintsRoutes,
   ...productsRoutes,
   // ...redirectRoute,

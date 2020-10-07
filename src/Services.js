@@ -48,6 +48,10 @@ export const Service = (baseUrl, Axios, token) => {
 		return instance.get(`${getApiv1Url(controller)}?page=${pageNumber}`);
 	}
 
+	const getUsers = (controller, pageNumber) => {
+		return instance.get(`${getApiv1Url(controller)}?page=${pageNumber}`);
+	}
+
 	const getTopCustomers= (controller, action) => {
 		return instance.get(`${getRestUrl(controller, action)}`);
 	}
@@ -60,6 +64,14 @@ export const Service = (baseUrl, Axios, token) => {
 	}
 	const editItem = (controller,data,id) => {
 		return instance.put(`${getApiv1Url(controller)}/${id}`,data);
+	}
+
+	const deleteProduct = (controller,action,data,id) => {
+		return instance.delete(`${getApiUrl(controller,action)}${id}`,{data});
+	}
+
+	const updateRole = (data, controller, action) => {
+		return instance.put(getApiUrl(controller, action), data);
 	}
 
 	const userLogin = (data, controller) => {
@@ -79,9 +91,12 @@ export const Service = (baseUrl, Axios, token) => {
 
 
 	return {
+		deleteProduct,
 		updateProduct,
+		getUsers,
 		updateOrder,
 		confirmOrder,
+		updateRole,
 		createProduct,
 		getCompletedOrders,
 		getProducts,

@@ -9,6 +9,11 @@ export const navigations = [
     path: "/home/orders",
     icon: "shopping_cart"
   },
+  {
+    name: "User",
+    path: "/home/users",
+    icon: "person"
+  },
   // {
   //   name: "Complaints",
   //   icon: "info",

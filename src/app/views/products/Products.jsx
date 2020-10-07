@@ -111,28 +111,28 @@ class Products extends React.Component {
       this.setState({ isPaneOpen: true });
     });
   };
-  deleteProduct = (value, tableMeta, updateValue) => {
-    console.log("adding");
-    console.log("value", value);
-    console.log("tableMeta", tableMeta);
-    console.log("updateValue", updateValue);
-    let rowItems = this.state.pageOfItems[tableMeta.rowIndex];
+  deleteProduct = (productDetails,e) => {
+    const {user} = this.props
+    const payload={
+      user: user._id
+    }
+     let rowItems = this.state.pageOfItems[parseInt(productDetails.no)-1];
     console.log("roww items", rowItems)
-    const {WEIGHT} = this.props.Constants
+    const {PRODUCT,DELETE} = this.props.Constants
     Swal.fire({
       title: 'Are you sure you want to Delete this item ?',
       showCancelButton: true,
       confirmButtonText: 'Delete',
       showLoaderOnConfirm: true,
       preConfirm: (login) => {
-        return this.props.ServiceBase.deleteItem(WEIGHT, rowItems.id)
+        return this.props.ServiceBase.deleteProduct(PRODUCT,DELETE,payload,rowItems._id)
         .then((response)=>{
           console.log("response ", response.data)
-          //this.getWeightData();
+          this.setState({ searchData: { PageSize: 10 } });
         })
         .catch(error => {
           Swal.showValidationMessage(
-            `Request failed: ${error}`
+            `Request failed: ${error.response.data.error}`
           )
         })
       },
@@ -240,6 +240,7 @@ formData.append('user', user._id);
     this.props.ServiceBase.updateProduct(PRODUCT, formData,rowItems._id)
     .then((response) => {
       console.log("response", response.data);
+      this.setState({ searchData: { PageSize: 10 } });
       toast.success( "Product Updated Successfully", {
         position: toast.POSITION.TOP_RIGHT,
         autoClose:4000
@@ -472,7 +473,7 @@ formData.append('user', user._id);
                 <br />
                 <div style={{ display: "flex" }}>
                   <DeleteIcon htmlColor="#DC7A01" />
-                  <label style={{ color: "#DC7A01" }}>Delete</label> &nbsp;
+                  <label style={{ color: "#DC7A01" }}onClick={this.deleteProduct.bind(this,productDetails)}>Delete</label> &nbsp;
                   <Edit htmlColor="#DC7A01" />
                   <label style={{ color: "#DC7A01" }} onClick={()=>this.setState({editForm:true})}>Edit Product</label>
                 </div>
