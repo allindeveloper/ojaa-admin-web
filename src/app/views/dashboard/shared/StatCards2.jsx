@@ -7,12 +7,24 @@ import {
   Tooltip
 } from "@material-ui/core";
 import { appHelpers } from "appHelper";
+import LoadingOverlay from "react-loading-overlay";
 
 const StatCards2 = (props) => {
   return (
     <Grid container spacing={3} className="mb-24">
       <Grid item xs={12} md={12}>
         <Card elevation={3} className="p-16">
+        <LoadingOverlay
+                  active={props.loadingNewCounts}
+                  styles={{
+                    overlay: (base) => ({
+                      ...base,
+                      background: "#e0e0e0",
+                    }),
+                  }}
+                  spinner
+                  text="Loading products sold..."
+                >
           <div className="flex flex-middle">
             <Fab
               size="medium"
@@ -31,10 +43,22 @@ const StatCards2 = (props) => {
             </div>
             <span className="font-size-13 text-green ml-4"> (+21%)</span>
           </div>
+          </LoadingOverlay>
         </Card>
       </Grid>
       <Grid item xs={12} md={12}>
                 <Card elevation={3} className="p-16">
+                <LoadingOverlay
+                  active={props.loadingNewCounts}
+                  styles={{
+                    overlay: (base) => ({
+                      ...base,
+                      background: "#e0e0e0",
+                    }),
+                  }}
+                  spinner
+                  text="Loading earnings..."
+                >
                   <div className="flex flex-middle">
                     <Fab
                       size="medium"
@@ -53,10 +77,22 @@ const StatCards2 = (props) => {
                     </div>
                     {/* <span className="font-size-13 text-error ml-4">(+21%)</span> */}
                   </div>
+                  </LoadingOverlay>
                 </Card>
               </Grid>
       <Grid item xs={12} md={12}>
         <Card elevation={3} className="p-16">
+        <LoadingOverlay
+                  active={props.loadingNewCounts}
+                  styles={{
+                    overlay: (base) => ({
+                      ...base,
+                      background: "#e0e0e0",
+                    }),
+                  }}
+                  spinner
+                  text="Loading total users..."
+                >
           <div className="flex flex-middle">
             <Fab
               size="medium"
@@ -75,6 +111,7 @@ const StatCards2 = (props) => {
             </div>
             <span className="font-size-13 text-green ml-4"> (+21%)</span>
           </div>
+          </LoadingOverlay>
         </Card>
       </Grid>
 

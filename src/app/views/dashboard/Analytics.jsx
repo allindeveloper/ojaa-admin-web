@@ -31,7 +31,7 @@ class Dashboard1 extends Component {
       usersCount:0,
       unitsSold:0,
       totalEarnings:0,
-      loadingNewCounts:0,
+      loadingNewCounts:true,
       dashboardFilter: {
         transactionHistory: 0,
       },
@@ -133,6 +133,7 @@ class Dashboard1 extends Component {
       totalEarnings,
       usersCount,
       unitsSold,
+      loadingNewCounts,
       topCustomers,
       loadingtopCustomers,
       newOrders,
@@ -220,7 +221,7 @@ class Dashboard1 extends Component {
             </Grid>
             <Grid item lg={4} md={4} sm={12} xs={12}>
               
-              <StatCards2 usersCount={usersCount} unitsSold={unitsSold} totalEarnings={totalEarnings}/>
+              <StatCards2 loadingNewCounts={loadingNewCounts} usersCount={usersCount} unitsSold={unitsSold} totalEarnings={totalEarnings}/>
             </Grid>
           </Grid>
         </div>
