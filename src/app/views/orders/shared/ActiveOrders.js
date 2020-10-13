@@ -104,20 +104,20 @@ class ActiveOrders extends Component {
       const {ORDER,UPDATE} = this.props.Constants;
 
       const payload ={
-        status : "Active",
+        status : "Delivered",
         user: this.props.user._id
       }
       Swal.fire({
-        title: 'Are you sure you want to confirm this order',
+        title: 'Are you sure you want to set this order to Delivered',
         showCancelButton: true,
         confirmButtonText: 'Confirm',
         showLoaderOnConfirm: true,
         preConfirm: (login) => {
-          return this.props.ServiceBase.updateOrder(ORDER,UPDATE,item.orderNo,payload)
+          return this.props.ServiceBase.updateOrder(ORDER,UPDATE,item._id,payload)
           .then((response) => {
-            this.setState({ searchData: { PageSize: this.state.PageSize } });
+            //this.setState({ searchData: { PageSize: this.state.PageSize } });
             console.log("response", response.data);
-            
+            this.setState({ searchData: { PageSize: this.state.pageOfItems.length -1 } });
           })
           .catch((error) => {
             Swal.showValidationMessage(
@@ -128,8 +128,9 @@ class ActiveOrders extends Component {
         allowOutsideClick: () => !Swal.isLoading()
       }).then((result) => {
         if (result.isConfirmed) {
+          
           Swal.fire({
-            title: `Order Confirmed Successfully`,
+            title: `Order Updated to Delivered Successfully`,
           })
         }
       })
@@ -140,7 +141,7 @@ class ActiveOrders extends Component {
     return (
         <>
             <>
-           <PaginationX currentPage ={this.state.currentPage}service={this.props.ServiceBase.getActiveOrders} controller={this.props.Constants.ORDERS} action={this.props.Constants.DELIVERING} onNewPageRequest={this.onNewPageRequest} searchData={this.state.searchData} onChangePage={this.onChangePage}  />
+           <PaginationX currentPage ={this.state.currentPage}service={this.props.ServiceBase.getActiveOrders} controller={this.props.Constants.ORDERS} action={this.props.Constants.ACTIVE} onNewPageRequest={this.onNewPageRequest} searchData={this.state.searchData} onChangePage={this.onChangePage}  />
           <div style={{ opacity: this.state.op }}>
             <CustomActiveOrderTable   classes={classes} rows={this.state.pageOfItems} isSearching={this.state.isSearching}
             confirmItem={this.confirmItem}

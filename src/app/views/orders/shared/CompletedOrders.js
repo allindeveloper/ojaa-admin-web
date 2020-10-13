@@ -111,7 +111,7 @@ class CompletedOrders extends Component {
         return this.props.ServiceBase.confirmOrder(CONFIRM_ORDER,payload)
         .then((response) => {
           console.log("response", response.data);
-          
+          this.setState({ searchData: { PageSize: this.state.pageOfItems.length -1 } });
         })
         .catch((error) => {
           // console.log("err confirming order", error.response.data);
@@ -119,18 +119,7 @@ class CompletedOrders extends Component {
                   `Request failed: ${error.response.data.error}`
                 )
            })
-        // return fetch(`//api.github.com/users/${login}`)
-        //   .then(response => {
-        //     if (!response.ok) {
-        //       throw new Error(response.statusText)
-        //     }
-        //     return response.json()
-        //   })
-        //   .catch(error => {
-        //     Swal.showValidationMessage(
-        //       `Request failed: ${error}`
-        //     )
-          // })
+       
       },
       allowOutsideClick: () => !Swal.isLoading()
     }).then((result) => {

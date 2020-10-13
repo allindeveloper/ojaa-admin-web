@@ -113,11 +113,10 @@ class NewOrders extends Component {
         confirmButtonText: 'Confirm',
         showLoaderOnConfirm: true,
         preConfirm: (login) => {
-          return this.props.ServiceBase.updateOrder(ORDER,UPDATE,item.orderNo,payload)
+          return this.props.ServiceBase.updateOrder(ORDER,UPDATE,item._id,payload)
           .then((response) => {
-            this.setState({ searchData: { PageSize: this.state.PageSize } });
             console.log("response", response.data);
-            
+            this.setState({ searchData: { PageSize: this.state.pageOfItems.length -1 } });
           })
           .catch((error) => {
             // console.log("err confirming order", error.response.data);
@@ -125,18 +124,7 @@ class NewOrders extends Component {
                     `Request failed: ${error.response.data.error}`
                   )
              })
-          // return fetch(`//api.github.com/users/${login}`)
-          //   .then(response => {
-          //     if (!response.ok) {
-          //       throw new Error(response.statusText)
-          //     }
-          //     return response.json()
-          //   })
-          //   .catch(error => {
-          //     Swal.showValidationMessage(
-          //       `Request failed: ${error}`
-          //     )
-            // })
+          
         },
         allowOutsideClick: () => !Swal.isLoading()
       }).then((result) => {

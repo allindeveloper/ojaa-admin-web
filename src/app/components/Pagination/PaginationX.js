@@ -1,5 +1,6 @@
 import React from 'react';
 import _ from 'lodash'
+import { Paper } from '@material-ui/core';
 
 if (!Array.isArray) {
   Array.isArray = function(arg) {
@@ -188,7 +189,8 @@ class PaginationX extends React.Component {
         }
  
         return (
-            <ul className="pagination  pull-right m-b-0" >
+            
+            <ul className="pagination  pull-right m-b-0"  style={{cursor:"pointer",boxShadow:"0px 3px 3px -2px rgba(0,0,0,0.2), 0px 3px 4px 0px rgba(0,0,0,0.14), 0px 1px 8px 0px rgba(0,0,0,0.12)"}}>
                 <li className={pager.currentPage === 1 ? 'page-item disabled hidden-xs' : 'page-item hidden-xs'}>
                     <a onClick={() => this.setPage(1)} className="page-link">First</a>
                 </li>
@@ -207,6 +209,7 @@ class PaginationX extends React.Component {
                     <a onClick={() => this.setPage(pager.totalPages)} className="page-link">Last</a>
                 </li>
             </ul>
+           
         );
     }
 }

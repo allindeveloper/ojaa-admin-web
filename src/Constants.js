@@ -23,6 +23,7 @@ export const UPDATE_ROLE = "updateRole";
 export const DELETE = "delete";
 export const GET_USER_BY_EMAIL = "GetUserByEmail";
 export const DASHBOARD = "dashboard";
+export const ACTIVE = "active";
 const DEMO = {
     BLANK_LINK: "#!",
 };
